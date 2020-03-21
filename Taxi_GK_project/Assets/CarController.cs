@@ -1,35 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
     [SerializeField] private float acceleration = 5f;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float turningSpeed = 45f;
-    [SerializeField] private AnimationCurve turningFactorBySpeed;
     [SerializeField] private Rigidbody rigidbody;
 
     private float currentSpeed = 0f;
+    private bool forward = false;
 
-    private float verticalInput = 0;
-    private float horizontalInput = 0;
+    private void Update()
+    {
+        currentSpeed = rigidbody.velocity.magnitude;
+        forward = (Vector3.Dot(rigidbody.velocity, rigidbody.transform.forward) > 0);
+    }
 
-   
     public void Accelerate()
     {
-        //   Debug.Log(rigidbody.velocity.magnitude);
-
         if (currentSpeed < maxSpeed)
         {
             rigidbody.AddForce(rigidbody.transform.forward * acceleration);
         }
     }
 
-    private void Update()
-    {
-        currentSpeed = rigidbody.velocity.magnitude;
-    }
 
     public void Break()
     {
@@ -42,13 +36,11 @@ public class CarController : MonoBehaviour
     public void ChangeDirection(bool left)
     {
         float direction = left ? -1 : 1;
-        
-     //   if (currentSpeed > 0.1 && rigidbody.angularVelocity.magnitude < 3)
-        {
-            Debug.Log(Vector3.up * turningSpeed * direction);
-            rigidbody.AddTorque(Vector3.up * turningSpeed * direction, ForceMode.Force);
-        }
+        direction = forward ? direction : direction * -1;
 
-      //  Debug.Log(rigidbody.angularVelocity.magnitude);
+        if (currentSpeed > 0.1 && Mathf.Abs(rigidbody.angularVelocity.y) < 1.5)
+        {
+            rigidbody.AddTorque(Vector3.up * turningSpeed * direction);
+        }
     }
 }
