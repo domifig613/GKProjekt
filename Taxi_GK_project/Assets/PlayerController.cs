@@ -4,26 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //[SerializeField] private CarController carController;
+    [SerializeField] CarController carController;
 
-    //void Update()
-    //{
-    //    if (Input.GetKey(KeyCode.LeftArrow))
-    //    {
-    //        carController.ChangeDirection(true);
-    //    }
-    //    else if (Input.GetKey(KeyCode.RightArrow))
-    //    {
-    //        carController.ChangeDirection(false);
-    //    }
+    private float verticalInput = 0f;
+    private float horizontalInput = 0f;
 
-    //    if (Input.GetKey(KeyCode.UpArrow))
-    //    {
-    //        carController.Accelerate();
-    //    }
-    //    else if (Input.GetKey(KeyCode.DownArrow))
-    //    {
-    //        carController.Break();
-    //    }
-    //}
+    private void Update()
+    {
+        CaptureInput();
+        carController.SetInputs(verticalInput, horizontalInput);
+    }
+
+    private void CaptureInput()
+    {
+        verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+    }
 }

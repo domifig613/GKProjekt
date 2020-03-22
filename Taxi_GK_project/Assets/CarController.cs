@@ -11,13 +11,13 @@ public class CarController : MonoBehaviour
     [SerializeField] private AnimationCurve turningFactorBySpeed;
 
     private float currentSpeed = 0f;
+    private float verticalValue = 0;
+    private float horizontalValue = 0;
 
-    private float verticalInput = 0;
-    private float horizontalInput = 0;
-
-    private void Update()
+    public void SetInputs(float verticalValue, float horizontalValue)
     {
-        CaptureInput();
+        this.verticalValue = verticalValue;
+        this.horizontalValue = horizontalValue;
     }
 
     private void FixedUpdate()
@@ -26,42 +26,33 @@ public class CarController : MonoBehaviour
         HandleMoving();
     }
 
-    private void CaptureInput()
-    {
-        verticalInput = Input.GetAxisRaw("Vertical");
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-    }
-
     private void HandleTurning()
     {
         if (Mathf.Abs(currentSpeed) > 0.1)
         {
-            float inputFactor = currentSpeed >= 0 ? horizontalInput : -horizontalInput;
-            float turnAngle = inputFactor * turningSpeed *  Time.fixedDeltaTime;
+            float inputFactor = currentSpeed >= 0 ? horizontalValue : -horizontalValue;
+            float turnAngle = inputFactor * turningSpeed * Mathf.Abs(currentSpeed)/10 *  Time.fixedDeltaTime;
             transform.Rotate(Vector3.up, turnAngle, Space.World);
         }
     }
 
     private void HandleMoving()
     {
-        float verticalInputFactor = verticalInput;
+        float verticalInputFactor = verticalValue;
 
-        if (currentSpeed > 0.1 && verticalInput <= 0)
+        if (currentSpeed > 0.1 && verticalValue <= 0)
         {
-            verticalInputFactor = verticalInput - 1;
+            verticalInputFactor = verticalValue - 0.3f;
         }
-
-        if (currentSpeed < -0.1 && verticalInput <= 0)
+        else if (currentSpeed < -0.1 && verticalValue <= 0)
         {
-            verticalInputFactor = verticalInput + 0.3f;
+            verticalInputFactor = verticalValue + 0.3f;
         }
 
         currentSpeed += verticalInputFactor * acceleration * Time.fixedDeltaTime;
         currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed / 2f, maxSpeed);
 
-        //Debug.Log(currentSpeed);
-
-        if (verticalInput == 0 && Mathf.Abs(currentSpeed) < 0.1)
+        if (verticalValue == 0 && Mathf.Abs(currentSpeed) < 0.1)
         {
             currentSpeed = 0;
         }
