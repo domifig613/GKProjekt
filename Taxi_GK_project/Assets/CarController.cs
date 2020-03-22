@@ -1,46 +1,71 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
     [SerializeField] private float acceleration = 5f;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float turningSpeed = 45f;
-    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private AnimationCurve turningFactorBySpeed;
 
     private float currentSpeed = 0f;
-    private bool forward = false;
+
+    private float verticalInput = 0;
+    private float horizontalInput = 0;
 
     private void Update()
     {
-        currentSpeed = rigidbody.velocity.magnitude;
-        forward = (Vector3.Dot(rigidbody.velocity, rigidbody.transform.forward) > 0);
+        CaptureInput();
     }
 
-    public void Accelerate()
+    private void FixedUpdate()
     {
-        if (currentSpeed < maxSpeed)
+        HandleTurning();
+        HandleMoving();
+    }
+
+    private void CaptureInput()
+    {
+        verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+    }
+
+    private void HandleTurning()
+    {
+        if (Mathf.Abs(currentSpeed) > 0.1)
         {
-            rigidbody.AddForce(rigidbody.transform.forward * acceleration);
+            float inputFactor = currentSpeed >= 0 ? horizontalInput : -horizontalInput;
+            float turnAngle = inputFactor * turningSpeed *  Time.fixedDeltaTime;
+            transform.Rotate(Vector3.up, turnAngle, Space.World);
         }
     }
 
-
-    public void Break()
+    private void HandleMoving()
     {
-        if (currentSpeed < maxSpeed)
-        {
-            rigidbody.AddForce(-rigidbody.transform.forward * acceleration);
-        }
-    }
+        float verticalInputFactor = verticalInput;
 
-    public void ChangeDirection(bool left)
-    {
-        float direction = left ? -1 : 1;
-        direction = forward ? direction : direction * -1;
-
-        if (currentSpeed > 0.1 && Mathf.Abs(rigidbody.angularVelocity.y) < 1.5)
+        if (currentSpeed > 0.1 && verticalInput <= 0)
         {
-            rigidbody.AddTorque(Vector3.up * turningSpeed * direction);
+            verticalInputFactor = verticalInput - 1;
         }
+
+        if (currentSpeed < -0.1 && verticalInput <= 0)
+        {
+            verticalInputFactor = verticalInput + 0.3f;
+        }
+
+        currentSpeed += verticalInputFactor * acceleration * Time.fixedDeltaTime;
+        currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed / 2f, maxSpeed);
+
+        //Debug.Log(currentSpeed);
+
+        if (verticalInput == 0 && Mathf.Abs(currentSpeed) < 0.1)
+        {
+            currentSpeed = 0;
+        }
+
+        transform.position += transform.forward * currentSpeed * Time.fixedDeltaTime;
     }
 }
