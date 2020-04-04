@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
@@ -9,6 +6,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float turningSpeed = 45f;
     [SerializeField] private AnimationCurve turningFactorBySpeed;
+    [SerializeField] private Rigidbody rigidbody;
 
     private float currentSpeed = 0f;
     private float verticalValue = 0;
@@ -31,8 +29,8 @@ public class CarController : MonoBehaviour
         if (Mathf.Abs(currentSpeed) > 0.1)
         {
             float inputFactor = currentSpeed >= 0 ? horizontalValue : -horizontalValue;
-            float turnAngle = inputFactor * turningSpeed * Mathf.Abs(currentSpeed)/10 *  Time.fixedDeltaTime;
-            transform.Rotate(Vector3.up, turnAngle, Space.World);
+            float turnAngle = inputFactor * turningSpeed * Mathf.Abs(currentSpeed) / 10 * Time.fixedDeltaTime;
+            rigidbody.transform.Rotate(Vector3.up, turnAngle, Space.World);
         }
     }
 
@@ -57,6 +55,6 @@ public class CarController : MonoBehaviour
             currentSpeed = 0;
         }
 
-        transform.position += transform.forward * currentSpeed * Time.fixedDeltaTime;
+        rigidbody.transform.position += rigidbody.transform.forward * currentSpeed * Time.fixedDeltaTime;
     }
 }
