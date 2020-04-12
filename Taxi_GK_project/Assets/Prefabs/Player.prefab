@@ -193,16 +193,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8239362921413070977}
     m_Modifications:
-    - target: {fileID: 8855618483053742075, guid: 50477af197889084e8a6d97f2b73b73b,
-        type: 3}
-      propertyPath: m_Name
-      value: OnTrigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 7333212423526400968, guid: 50477af197889084e8a6d97f2b73b73b,
-        type: 3}
-      propertyPath: m_Name
-      value: OnTrigger
-      objectReference: {fileID: 0}
     - target: {fileID: 1646981259178978, guid: 50477af197889084e8a6d97f2b73b73b, type: 3}
       propertyPath: m_Name
       value: Taxi
@@ -276,10 +266,10 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 406319670861894591, guid: 50477af197889084e8a6d97f2b73b73b,
+    - target: {fileID: 8855618483053742075, guid: 50477af197889084e8a6d97f2b73b73b,
         type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
+      propertyPath: m_Name
+      value: OnTrigger
       objectReference: {fileID: 0}
     - target: {fileID: 8952293700493053171, guid: 50477af197889084e8a6d97f2b73b73b,
         type: 3}
@@ -291,7 +281,17 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7333212423526400968, guid: 50477af197889084e8a6d97f2b73b73b,
+        type: 3}
+      propertyPath: m_Name
+      value: OnTrigger
+      objectReference: {fileID: 0}
     - target: {fileID: 4633100817593347617, guid: 50477af197889084e8a6d97f2b73b73b,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406319670861894591, guid: 50477af197889084e8a6d97f2b73b73b,
         type: 3}
       propertyPath: m_IsTrigger
       value: 0
