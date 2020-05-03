@@ -36,4 +36,22 @@ public class QuestConfig : ScriptableObject
     public float MultiplayerTimerForMediumQuest { get { return multiplayerTimerForMediumQuest; } }
     public float MultiplayerTimerForEasyQuest { get { return multiplayerTimerForEasyQuest; } }
     public float MultiplayerTimerForCampaignQuest { get { return multiplayerTimerForCampaignQuest; } }
+
+    public Color GetStartColor(QuestType type)
+    {
+        switch (type)
+        {
+            case QuestType.campaign:
+                return CampaignQuestColor;
+            case QuestType.easy:
+                return EasyQuestColor;
+            case QuestType.medium:
+                return MediumQuestColor;
+            case QuestType.hard:
+                return HardQuestColor;
+            default:
+                Debug.LogError("QuestController. GetStartColor. Unknown Quest Type");
+                return new Color();
+        }
+    }
 }

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hardQuestColor: {r: 1, g: 0, b: 0, a: 1}
   mediumQuestColor: {r: 1, g: 0.7531516, b: 0, a: 1}
-  easyQuestColor: {r: 0.57078075, g: 1, b: 0, a: 1}
+  easyQuestColor: {r: 0, g: 0.6320754, b: 0.014872437, a: 1}
   campaignQuestColor: {r: 0.047864437, g: 0, b: 1, a: 1}
   finishingQuestColor: {r: 0, g: 0.7725673, b: 1, a: 1}
-  hardQuestCount: 0
+  hardQuestCount: 1
   mediumQuestCount: 0
   easyQuestCount: 0
   campaignQuestCount: 0
@@ -25,6 +25,3 @@ MonoBehaviour:
   multiplayerTimerForMediumQuest: 0.597
   multiplayerTimerForEasyQuest: 0.796
   multiplayerTimerForCampaignQuest: 0.497
-  questPlaces:
-  - {fileID: 0}
-  - {fileID: 0}

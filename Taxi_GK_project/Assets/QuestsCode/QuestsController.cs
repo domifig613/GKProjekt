@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class QuestController : MonoBehaviour
+public class QuestsController : MonoBehaviour
 {
     [SerializeField] private QuestConfig questConfig;
     [SerializeField] private List<QuestVisualController> questPlaces;
@@ -12,12 +13,40 @@ public class QuestController : MonoBehaviour
 
     public QuestConfig QuestConfig { get { return questConfig; } }
 
+    private void Start()
+    {
+        foreach (var place in questPlaces)
+        {
+            place.Init();
+        }
+    }
+
     private void Update()
     {
         TryStartNewQuest(questConfig.HardQuestCount,    QuestType.hard,     questConfig.MultiplayerTimerForHardQuest);
         TryStartNewQuest(questConfig.MediumQuestCount,  QuestType.medium,   questConfig.MultiplayerTimerForMediumQuest);
         TryStartNewQuest(questConfig.EasyQuestCount,    QuestType.easy,     questConfig.MultiplayerTimerForEasyQuest);
         TryStartNewQuest(questConfig.CampaignQuestCount,QuestType.campaign, questConfig.MultiplayerTimerForCampaignQuest);
+
+        TryEndQuests();
+    }
+
+    private void TryEndQuests()
+    {
+        for (int i = quests.Count -1; i >= 0; i--)
+        {
+            if(quests[i].questDone)
+            {
+                //get money
+                quests.Remove(quests[i]);
+            }
+            else if(quests[i].GetSecoundToEndQuest() <= 0f)
+            {
+                //remove some money
+                quests[i].EndQuest();
+                quests.Remove(quests[i]);
+            }
+        }
     }
 
     private void TryStartNewQuest(int questCount, QuestType type, float timeMultiplier)
@@ -27,16 +56,15 @@ public class QuestController : MonoBehaviour
             if (questPlaces.Count(x => !x.IsUseNow) >= 2)
             {
                 List<QuestVisualController> freeQuestPlaces = questPlaces.FindAll(x => !x.IsUseNow);
-                QuestVisualController startPlace = freeQuestPlaces[Random.Range(0, freeQuestPlaces.Count)];
+                QuestVisualController startPlace = freeQuestPlaces[UnityEngine.Random.Range(0, freeQuestPlaces.Count)];
                 freeQuestPlaces.Remove(startPlace);
-                QuestVisualController finishPlace = freeQuestPlaces[Random.Range(0, freeQuestPlaces.Count)];
+                QuestVisualController finishPlace = freeQuestPlaces[UnityEngine.Random.Range(0, freeQuestPlaces.Count)];
 
                 startPlace.IsUseNow = true;
                 finishPlace.IsUseNow = true;
-
                 float secondsToEndQuest = Vector3.Distance(startPlace.GetVisualPosition(), finishPlace.GetVisualPosition()) * timeMultiplier;
 
-                quests.Add(new Quest(type, secondsToEndQuest, startPlace, finishPlace, 100));
+                quests.Add(new Quest(type, secondsToEndQuest, startPlace, finishPlace, 100, QuestConfig.GetStartColor(type), questConfig.FinishingQuestColor));
             }
             else
             {

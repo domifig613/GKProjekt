@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,28 +13,44 @@ public class QuestVisualController : MonoBehaviour
 
     private Transform questVisualTransform;
     private MeshRenderer questVisualMeshRenderer;
+    private Action onCarEnter;
 
     public bool IsUseNow = false;
 
-    public void Init(Color visualColor)
+    public void Init()
     {
         questVisualTransform = questVisual.GetComponent<Transform>();
-        questVisualMeshRenderer = questVisualMeshRenderer.GetComponent<MeshRenderer>();
-
+        questVisualMeshRenderer = questVisual.GetComponent<MeshRenderer>();
         questVisualMeshRenderer.material = new Material(questVisibleMaterial);
-        questVisualMeshRenderer.material.SetColor(materialColorName, visualColor);
+    }
+        
+    public void StartQuest(Color visualColor, Action onCarEnter)
+    {
+        gameObject.SetActive(true);
+        questVisualMeshRenderer.material.SetColor("_RimColor", visualColor);
+        this.onCarEnter = onCarEnter;
 
         questCollider.Init(onCarInQuestArea);
+        IsUseNow = true;
     }
 
     private void Update()
     {
-        questVisualTransform.Rotate(0, yRotationMesh, 0);
+        if (IsUseNow)
+        {
+            questVisualTransform.Rotate(0, yRotationMesh, 0);
+        }
     }
 
     private void onCarInQuestArea()
     {
+        onCarEnter();
+    }
 
+    public void DisableQuestVisual()
+    {
+        IsUseNow = false;
+        gameObject.SetActive(false);
     }
 
     public Vector3 GetVisualPosition()
