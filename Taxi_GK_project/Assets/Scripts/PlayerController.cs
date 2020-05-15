@@ -1,35 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
-public class PlayerController : MonoBehaviour
+public static class PlayerController
 {
-    [SerializeField] CarController carController;
-    [SerializeField] List<WheelOnTriggerCollider> wheelsColiders;
+    public static Quest currentQuest { get; private set; }
+    public static int Cash { get; private set; } = 100;
 
-    private float verticalInput = 0f;
-    private float horizontalInput = 0f;
+    public static Action OnCashRefresh = delegate { };
+    public static Action OnQuestStateChanged = delegate { };
 
-    private bool wheelsOnStreet = true;
-
-    private void Update()
+    public static bool QuestIsActive()
     {
-        wheelsOnStreet = wheelsColiders[0].wheelOnStreet || wheelsColiders[1].wheelOnStreet;
+        return currentQuest != null;
+    }
 
-        if (wheelsOnStreet)
+    public static bool TrySetActiveQuest(Quest potentialNewQuest)
+    {
+        if (currentQuest == null)
         {
-            CaptureInput();
-            carController.SetInputs(verticalInput, horizontalInput);
+            currentQuest = potentialNewQuest;
+            OnQuestStateChanged();
+            return true;
         }
         else
         {
-            carController.SetInputs(0, 0);
+            return false;
         }
     }
 
-    private void CaptureInput()
+    public static void EndCurrentQuest()
     {
-        verticalInput = Input.GetAxisRaw("Vertical");
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        currentQuest = null;
+        OnQuestStateChanged();
+    }
+
+    public static void AddCash(int additionalAmountCash)
+    {
+        Cash += additionalAmountCash;
+        OnCashRefresh();
+    }
+
+    public static void RemoveCash(int amountOfCashToRemove)
+    {
+        Cash -= amountOfCashToRemove;
+        OnCashRefresh();
+
+        if (Cash <= 0)
+        {
+            //game over? :P
+        }
     }
 }

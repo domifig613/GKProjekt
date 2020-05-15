@@ -25,3 +25,8 @@ MonoBehaviour:
   multiplayerTimerForMediumQuest: 0.597
   multiplayerTimerForEasyQuest: 0.796
   multiplayerTimerForCampaignQuest: 0.497
+  multiplierHardQuestCash: 0.5
+  multiplierMediumQuestCash: 0.4
+  multiplierEasyQuestCash: 0.35
+  multiplierCampaignQuestCash: 0.6
+  notReachingOnTimePenalty: 0.6

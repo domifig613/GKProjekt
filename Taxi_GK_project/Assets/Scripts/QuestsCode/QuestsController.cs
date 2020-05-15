@@ -9,6 +9,7 @@ public class QuestsController : MonoBehaviour
     [SerializeField] private QuestConfig questConfig;
     [SerializeField] private List<QuestVisualController> questPlaces;
 
+
     private List<Quest> quests = new List<Quest>();
 
     public QuestConfig QuestConfig { get { return questConfig; } }
@@ -37,12 +38,14 @@ public class QuestsController : MonoBehaviour
         {
             if(quests[i].questDone)
             {
-                //get money
+                PlayerController.AddCash(quests[i].prize);
+                PlayerController.EndCurrentQuest();
                 quests.Remove(quests[i]);
             }
             else if(quests[i].GetSecoundToEndQuest() <= 0f)
             {
-                //remove some money
+                PlayerController.RemoveCash((int)(quests[i].prize * questConfig.NotReachingOnTimePenalty));
+                PlayerController.EndCurrentQuest();
                 quests[i].EndQuest();
                 quests.Remove(quests[i]);
             }
@@ -62,9 +65,10 @@ public class QuestsController : MonoBehaviour
 
                 startPlace.IsUseNow = true;
                 finishPlace.IsUseNow = true;
-                float secondsToEndQuest = Vector3.Distance(startPlace.GetVisualPosition(), finishPlace.GetVisualPosition()) * timeMultiplier;
+                float distance = Vector3.Distance(startPlace.GetVisualPosition(), finishPlace.GetVisualPosition());
+                float secondsToEndQuest = distance * timeMultiplier;
 
-                quests.Add(new Quest(type, secondsToEndQuest, startPlace, finishPlace, 100, QuestConfig.GetStartColor(type), questConfig.FinishingQuestColor));
+                quests.Add(new Quest(type, secondsToEndQuest, startPlace, finishPlace, (int)(QuestConfig.GetMultiplierCashQuest(type) * distance), QuestConfig.GetStartColor(type), questConfig.FinishingQuestColor));
             }
             else
             {

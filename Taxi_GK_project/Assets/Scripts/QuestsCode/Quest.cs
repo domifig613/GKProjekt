@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using UnityEngine;
 
 public class Quest
@@ -12,9 +10,14 @@ public class Quest
     private Color startColor;
     private Color endColor;
 
+    public string GetQuestEndPlaceName()
+    {
+        return endPoint.gameObject.name;
+    }
+
     public bool questDone { get; private set; } = false;
     public int prize { get; private set; }
-    
+
     public QuestType questType { get; private set; }
 
     public Quest(QuestType questType, float timeToCompleteQuestInSecound, QuestVisualController startPoint, QuestVisualController endPoint, int prize, Color startColor, Color endColor)
@@ -31,9 +34,13 @@ public class Quest
 
     public void StartQuest()
     {
-        startPoint.DisableQuestVisual();
-        timeFromStartQuest.Start();
-        endPoint.StartQuest(endColor, EndQuest);
+        if (!PlayerController.QuestIsActive())
+        {
+            PlayerController.TrySetActiveQuest(this);
+            startPoint.DisableQuestVisual();
+            timeFromStartQuest.Start();
+            endPoint.StartQuest(endColor, EndQuest);
+        }
     }
 
     public void EndQuest()

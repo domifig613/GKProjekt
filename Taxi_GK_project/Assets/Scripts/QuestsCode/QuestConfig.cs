@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName ="QuestConfig", menuName="QuestConfig")]
 public class QuestConfig : ScriptableObject
@@ -21,6 +19,12 @@ public class QuestConfig : ScriptableObject
     [SerializeField] private float multiplayerTimerForEasyQuest;
     [SerializeField] private float multiplayerTimerForCampaignQuest;
 
+    [SerializeField] private float multiplierHardQuestCash;
+    [SerializeField] private float multiplierMediumQuestCash;
+    [SerializeField] private float multiplierEasyQuestCash;
+    [SerializeField] private float multiplierCampaignQuestCash;
+    [SerializeField] private float notReachingOnTimePenalty;
+
     public Color HardQuestColor { get { return hardQuestColor; } }
     public Color MediumQuestColor { get { return mediumQuestColor; } }
     public Color EasyQuestColor { get { return easyQuestColor; } }
@@ -37,6 +41,13 @@ public class QuestConfig : ScriptableObject
     public float MultiplayerTimerForEasyQuest { get { return multiplayerTimerForEasyQuest; } }
     public float MultiplayerTimerForCampaignQuest { get { return multiplayerTimerForCampaignQuest; } }
 
+    public float MultiplierHardQuestCash { get { return multiplierHardQuestCash; } }
+    public float MultiplierMediumQuestCash { get { return multiplierMediumQuestCash; } }
+    public float MultiplierEasyQuestCash { get { return multiplierEasyQuestCash; } }
+    public float MultiplierCampaignQuestCash { get { return multiplierCampaignQuestCash; } }
+    public float NotReachingOnTimePenalty { get { return notReachingOnTimePenalty; } }
+
+
     public Color GetStartColor(QuestType type)
     {
         switch (type)
@@ -52,6 +63,24 @@ public class QuestConfig : ScriptableObject
             default:
                 Debug.LogError("QuestController. GetStartColor. Unknown Quest Type");
                 return new Color();
+        }
+    }
+
+    public float GetMultiplierCashQuest(QuestType type)
+    {
+        switch (type)
+        {
+            case QuestType.campaign:
+                return MultiplierCampaignQuestCash;
+            case QuestType.easy:
+                return MultiplierEasyQuestCash;
+            case QuestType.medium:
+                return MultiplierMediumQuestCash;
+            case QuestType.hard:
+                return MultiplierHardQuestCash;
+            default:
+                Debug.LogError("QuestController. GetStartColor. Unknown Quest Type");
+                return 0f;
         }
     }
 }
