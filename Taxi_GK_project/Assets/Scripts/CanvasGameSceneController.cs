@@ -8,6 +8,7 @@ public class CanvasGameSceneController : MonoBehaviour
     [SerializeField] private QuestsController questsController;
     [SerializeField] private TMPro.TMP_Text cashText;
     [SerializeField] private TMPro.TMP_Text currentQuestInfo;
+    [SerializeField] private GameObject map;
 
     private const string NO_ACTIVE_QUEST_INFO = "No active quest";
     private bool isQuestActive = false;
@@ -17,6 +18,7 @@ public class CanvasGameSceneController : MonoBehaviour
 
     private void Start()
     {
+        CloseMap();
         RefreshCash();
         RefreshQuestInfo();
         PlayerController.OnCashRefresh += RefreshCash;
@@ -56,5 +58,25 @@ public class CanvasGameSceneController : MonoBehaviour
             currentQuestInfo.text = NO_ACTIVE_QUEST_INFO;
             currentQuestInfo.color = Color.white;
         }
+    }
+
+    private void OpenMap()
+    {
+        map.SetActive(true);
+    }
+
+    public void CloseMap()
+    {
+        map.SetActive(false);
+    }
+
+    public void ChangeMapState()
+    {
+        map.SetActive(!map.activeSelf);
+    }
+
+    public bool MapIsOpen()
+    {
+        return map.activeSelf;
     }
 }

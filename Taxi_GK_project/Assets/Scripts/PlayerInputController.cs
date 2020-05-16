@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCarWheelsController : MonoBehaviour
+public class PlayerInputController : MonoBehaviour
 {
     [SerializeField] CarController carController;
     [SerializeField] List<WheelOnTriggerCollider> wheelsColiders;
+    [SerializeField] CanvasGameSceneController canvasGameSceneController;
 
     private float verticalInput = 0f;
     private float horizontalInput = 0f;
@@ -24,6 +26,30 @@ public class PlayerCarWheelsController : MonoBehaviour
         else
         {
             carController.SetInputs(0, 0);
+        }
+
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            canvasGameSceneController.ChangeMapState();
+            ChangeGameStatus();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            canvasGameSceneController.CloseMap();
+            ChangeGameStatus();
+        }
+    }
+
+    private void ChangeGameStatus()
+    {
+        if (canvasGameSceneController.MapIsOpen())
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
         }
     }
 
