@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class CanvasGameSceneController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class CanvasGameSceneController : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text cashText;
     [SerializeField] private TMPro.TMP_Text currentQuestInfo;
     [SerializeField] private GameObject map;
+
+    [SerializeField] private List<GameObject> questBigMapTags;
 
     private const string NO_ACTIVE_QUEST_INFO = "No active quest";
     private bool isQuestActive = false;
@@ -23,6 +26,11 @@ public class CanvasGameSceneController : MonoBehaviour
         RefreshQuestInfo();
         PlayerController.OnCashRefresh += RefreshCash;
         PlayerController.OnQuestStateChanged += RefreshQuestInfo;
+
+        foreach (var tag in questBigMapTags)
+        {
+            tag.SetActive(false);
+        }
     }
 
     private void RefreshCash()
@@ -32,7 +40,12 @@ public class CanvasGameSceneController : MonoBehaviour
 
     private void Update()
     {
-        if(isQuestActive)
+        UpdateTimer();
+    }
+
+    private void UpdateTimer()
+    {
+        if (isQuestActive)
         {
             currentQuestInfo.text = currentQuestFinishPlace + " time left: " + deadlineToFinishQuest.Minutes + ":" + deadlineToFinishQuest.Seconds + "\n" +
                 " cash for order: " + cashForOrder;
@@ -49,7 +62,7 @@ public class CanvasGameSceneController : MonoBehaviour
             Quest currentQuest = PlayerController.currentQuest;
             deadlineToFinishQuest = new TimeSpan();
             deadlineToFinishQuest += TimeSpan.FromSeconds(currentQuest.GetSecoundToEndQuest());
-            cashForOrder = currentQuest.prize;
+            cashForOrder = currentQuest.Prize;
             currentQuestFinishPlace = currentQuest.GetQuestEndPlaceName();
             currentQuestInfo.color = questsController.QuestConfig.GetStartColor(currentQuest.questType);
         }
@@ -60,6 +73,7 @@ public class CanvasGameSceneController : MonoBehaviour
         }
     }
 
+    #region map
     private void OpenMap()
     {
         map.SetActive(true);
@@ -79,4 +93,23 @@ public class CanvasGameSceneController : MonoBehaviour
     {
         return map.activeSelf;
     }
+
+    public void AddTagToMap(int index, Color tagColor)
+    {
+        questBigMapTags[index].SetActive(true);
+        questBigMapTags[index].GetComponent<Image>().color = tagColor;
+    }
+
+    public void RemoveTagFromMap(int index)
+    {
+        questBigMapTags[index].SetActive(false);
+    }
+
+    public void ChangeTagOnQuestStart(int startIndex, Color finishColor, int finishIndex)
+    {
+        RemoveTagFromMap(startIndex);
+        AddTagToMap(finishIndex, finishColor);
+    }
+
+    #endregion
 }

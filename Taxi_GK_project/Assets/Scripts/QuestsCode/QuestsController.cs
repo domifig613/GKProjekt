@@ -8,7 +8,7 @@ public class QuestsController : MonoBehaviour
 {
     [SerializeField] private QuestConfig questConfig;
     [SerializeField] private List<QuestVisualController> questPlaces;
-
+    [SerializeField] private CanvasGameSceneController canvasController;
 
     private List<Quest> quests = new List<Quest>();
 
@@ -36,16 +36,18 @@ public class QuestsController : MonoBehaviour
     {
         for (int i = quests.Count -1; i >= 0; i--)
         {
-            if(quests[i].questDone)
+            if(quests[i].QuestDone)
             {
-                PlayerController.AddCash(quests[i].prize);
+                PlayerController.AddCash(quests[i].Prize);
                 PlayerController.EndCurrentQuest();
+                canvasController.RemoveTagFromMap(questPlaces.IndexOf(quests[i].EndPoint));
                 quests.Remove(quests[i]);
             }
             else if(quests[i].GetSecoundToEndQuest() <= 0f)
             {
-                PlayerController.RemoveCash((int)(quests[i].prize * questConfig.NotReachingOnTimePenalty));
+                PlayerController.RemoveCash((int)(quests[i].Prize * questConfig.NotReachingOnTimePenalty));
                 PlayerController.EndCurrentQuest();
+                canvasController.RemoveTagFromMap(questPlaces.IndexOf(quests[i].EndPoint));
                 quests[i].EndQuest();
                 quests.Remove(quests[i]);
             }
@@ -67,8 +69,12 @@ public class QuestsController : MonoBehaviour
                 finishPlace.IsUseNow = true;
                 float distance = Vector3.Distance(startPlace.GetVisualPosition(), finishPlace.GetVisualPosition());
                 float secondsToEndQuest = distance * timeMultiplier;
+                Color startColor = QuestConfig.GetStartColor(type);
 
-                quests.Add(new Quest(type, secondsToEndQuest, startPlace, finishPlace, (int)(QuestConfig.GetMultiplierCashQuest(type) * distance), QuestConfig.GetStartColor(type), questConfig.FinishingQuestColor));
+                quests.Add(new Quest(type, secondsToEndQuest, startPlace, finishPlace, 
+                    (int)(QuestConfig.GetMultiplierCashQuest(type) * distance), startColor, 
+                    questConfig.FinishingQuestColor, questPlaces.IndexOf(startPlace), questPlaces.IndexOf(finishPlace), canvasController.ChangeTagOnQuestStart));
+                canvasController.AddTagToMap(questPlaces.IndexOf(startPlace), startColor);
             }
             else
             {

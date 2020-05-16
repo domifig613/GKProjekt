@@ -1,34 +1,43 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Quest
 {
     private QuestVisualController startPoint;
-    private QuestVisualController endPoint;
     private Stopwatch timeFromStartQuest = new Stopwatch();
     private float timeToCompleteQuestInSecound;
     private Color startColor;
     private Color endColor;
+    private Action<int, Color, int> onQuestStartAction;
 
     public string GetQuestEndPlaceName()
     {
-        return endPoint.gameObject.name;
+        return EndPoint.gameObject.name;
     }
 
-    public bool questDone { get; private set; } = false;
-    public int prize { get; private set; }
+    public int StartIndex { get; private set; }
+    public int EndIndex { get; private set; }
+    public bool QuestDone { get; private set; } = false;
+    public int Prize { get; private set; }
+    public QuestVisualController EndPoint { get; private set; }
 
     public QuestType questType { get; private set; }
 
-    public Quest(QuestType questType, float timeToCompleteQuestInSecound, QuestVisualController startPoint, QuestVisualController endPoint, int prize, Color startColor, Color endColor)
+    public Quest(QuestType questType, float timeToCompleteQuestInSecound, QuestVisualController startPoint, 
+        QuestVisualController endPoint, int prize, Color startColor, Color endColor, int visualStartIndex, 
+        int visualEndIndex, Action<int, Color, int> onQuestStartAction)
     {
         this.questType = questType;
         this.timeToCompleteQuestInSecound = timeToCompleteQuestInSecound;
-        this.prize = prize;
+        this.Prize = prize;
         this.startColor = startColor;
         this.endColor = endColor;
         this.startPoint = startPoint;
-        this.endPoint = endPoint;
+        this.EndPoint = endPoint;
+        this.StartIndex = visualStartIndex;
+        this.EndIndex = visualEndIndex;
+        this.onQuestStartAction = onQuestStartAction;
         startPoint.StartQuest(startColor, StartQuest);
     }
 
@@ -37,16 +46,17 @@ public class Quest
         if (!PlayerController.QuestIsActive())
         {
             PlayerController.TrySetActiveQuest(this);
+            onQuestStartAction(StartIndex, endColor, EndIndex);
             startPoint.DisableQuestVisual();
             timeFromStartQuest.Start();
-            endPoint.StartQuest(endColor, EndQuest);
+            EndPoint.StartQuest(endColor, EndQuest);
         }
     }
 
     public void EndQuest()
     {
-        endPoint.DisableQuestVisual();
-        questDone = true;
+        EndPoint.DisableQuestVisual();
+        QuestDone = true;
     }
 
     public float GetSecoundToEndQuest()
