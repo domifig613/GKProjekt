@@ -13,6 +13,7 @@ public class CanvasGameSceneController : MonoBehaviour
     private bool isQuestActive = false;
     private string currentQuestFinishPlace = "";
     private TimeSpan deadlineToFinishQuest;
+    private int cashForOrder = 0;
 
     private void Start()
     {
@@ -31,7 +32,8 @@ public class CanvasGameSceneController : MonoBehaviour
     {
         if(isQuestActive)
         {
-            currentQuestInfo.text = currentQuestFinishPlace + " time left: " + deadlineToFinishQuest.Minutes + ":" + deadlineToFinishQuest.Seconds;
+            currentQuestInfo.text = currentQuestFinishPlace + " time left: " + deadlineToFinishQuest.Minutes + ":" + deadlineToFinishQuest.Seconds + "\n" +
+                " cash for order: " + cashForOrder;
             deadlineToFinishQuest -= TimeSpan.FromSeconds(Time.deltaTime);
         }
     }
@@ -45,6 +47,7 @@ public class CanvasGameSceneController : MonoBehaviour
             Quest currentQuest = PlayerController.currentQuest;
             deadlineToFinishQuest = new TimeSpan();
             deadlineToFinishQuest += TimeSpan.FromSeconds(currentQuest.GetSecoundToEndQuest());
+            cashForOrder = currentQuest.prize;
             currentQuestFinishPlace = currentQuest.GetQuestEndPlaceName();
             currentQuestInfo.color = questsController.QuestConfig.GetStartColor(currentQuest.questType);
         }
