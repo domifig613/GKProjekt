@@ -18,9 +18,9 @@ MonoBehaviour:
   campaignQuestColor: {r: 0.047864437, g: 0, b: 1, a: 1}
   finishingQuestColor: {r: 0, g: 0.7725673, b: 1, a: 1}
   hardQuestCount: 1
-  mediumQuestCount: 0
-  easyQuestCount: 0
-  campaignQuestCount: 0
+  mediumQuestCount: 1
+  easyQuestCount: 1
+  campaignQuestCount: 1
   multiplayerTimerForHardQuest: 0.497
   multiplayerTimerForMediumQuest: 0.597
   multiplayerTimerForEasyQuest: 0.796
