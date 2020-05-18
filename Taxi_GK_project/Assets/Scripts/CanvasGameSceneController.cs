@@ -47,7 +47,8 @@ public class CanvasGameSceneController : MonoBehaviour
     {
         if (isQuestActive)
         {
-            currentQuestInfo.text = currentQuestFinishPlace + " time left: " + deadlineToFinishQuest.Minutes + ":" + deadlineToFinishQuest.Seconds + "\n" +
+            string additionalZeroInSeconds = deadlineToFinishQuest.Seconds < 10 ? "0" : "";
+            currentQuestInfo.text = currentQuestFinishPlace + "\n time left: " + deadlineToFinishQuest.Minutes + ":" + additionalZeroInSeconds + deadlineToFinishQuest.Seconds + "\n" +
                 " cash for order: " + cashForOrder;
             deadlineToFinishQuest -= TimeSpan.FromSeconds(Time.deltaTime);
         }
