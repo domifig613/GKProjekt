@@ -7,7 +7,7 @@ public class QuestVisualController : MonoBehaviour
 {
     [SerializeField] private Material questVisibleMaterial;
     [SerializeField] private GameObject questVisual;
-    [SerializeField] private QuestVisualCollider questCollider;
+    [SerializeField] private VisualCollider questCollider;
     [SerializeField] private string materialColorName;
     [SerializeField] private int yRotationMesh;
 

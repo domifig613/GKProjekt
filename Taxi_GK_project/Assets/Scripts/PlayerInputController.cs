@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInputController : MonoBehaviour
@@ -8,6 +6,7 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField] CarController carController;
     [SerializeField] List<WheelOnTriggerCollider> wheelsColiders;
     [SerializeField] CanvasGameSceneController canvasGameSceneController;
+    [SerializeField] GasStationController gasStationController;
 
     private float verticalInput = 0f;
     private float horizontalInput = 0f;
@@ -28,16 +27,28 @@ public class PlayerInputController : MonoBehaviour
             carController.SetInputs(0, 0);
         }
 
-        if(Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             canvasGameSceneController.ChangeMapState();
             ChangeGameStatus();
         }
-
-        if(Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             canvasGameSceneController.CloseMap();
             ChangeGameStatus();
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (gasStationController.CanGetFuel())
+            {
+                if (PlayerController.Cash > 0)
+                {
+                    if(carController.TryAddFuel(gasStationController.FuelPerClick))
+                    {
+                        PlayerController.RemoveCash(gasStationController.PriceForFuel);
+                    }
+                }
+            }
         }
     }
 

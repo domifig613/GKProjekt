@@ -42,11 +42,13 @@ public static class PlayerController
     public static void RemoveCash(int amountOfCashToRemove)
     {
         Cash -= amountOfCashToRemove;
-        OnCashRefresh();
 
         if (Cash <= 0)
         {
             //game over? :P
+            Cash = 0;
         }
+
+        OnCashRefresh();
     }
 }

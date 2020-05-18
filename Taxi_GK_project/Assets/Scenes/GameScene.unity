@@ -186,12 +186,12 @@ PrefabInstance:
     - target: {fileID: 3590309762764959543, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: fuelConsumption
-      value: 3
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -68.6
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
@@ -201,7 +201,7 @@ PrefabInstance:
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 239
+      value: 215
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
@@ -323,6 +323,11 @@ PrefabInstance:
       propertyPath: canvasGameSceneController
       value: 
       objectReference: {fileID: 599111452}
+    - target: {fileID: 8239362921413070978, guid: d4079a2b52a6ec046b68f1c56b492059,
+        type: 3}
+      propertyPath: gasStationController
+      value: 
+      objectReference: {fileID: 391458871}
     - target: {fileID: 8218122881665251985, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -1231,6 +1236,18 @@ PrefabInstance:
       objectReference: {fileID: 887252459}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df382a8d236544c4ab9c4b28c2600e81, type: 3}
+--- !u!114 &89134603 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1232115882532693815, guid: df382a8d236544c4ab9c4b28c2600e81,
+    type: 3}
+  m_PrefabInstance: {fileID: 89134602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a7e275078c57044932a898c0566689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &106249523
 GameObject:
   m_ObjectHideFlags: 0
@@ -2109,9 +2126,60 @@ Transform:
   - {fileID: 166302499}
   - {fileID: 364810523}
   - {fileID: 599111451}
+  - {fileID: 391458870}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &391458869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 391458870}
+  - component: {fileID: 391458871}
+  m_Layer: 0
+  m_Name: GasStationsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &391458870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391458869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386510302}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &391458871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391458869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f5cf76adaa824e4ab242920e792d84a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gasStationVisualControllers:
+  - {fileID: 89134603}
+  - {fileID: 6877338718601274588}
+  - {fileID: 6877338718601274587}
+  - {fileID: 5799795907382363883}
+  priceForFuel: 15
+  fuelPerClick: 50000
 --- !u!1 &391460505
 GameObject:
   m_ObjectHideFlags: 0
@@ -7188,6 +7256,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdb8d84d5c999274ba8987f11984bc1e, type: 3}
+--- !u!114 &5799795907382363883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4421598231394635465, guid: bdb8d84d5c999274ba8987f11984bc1e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5799795907382363882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a7e275078c57044932a898c0566689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5816006818361685136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7495,6 +7575,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3af1b9b5c62e81746b2d3689cecf52c2, type: 3}
+--- !u!114 &6877338718601274587 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 789687181449899486, guid: 3af1b9b5c62e81746b2d3689cecf52c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 6877338718601274586}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a7e275078c57044932a898c0566689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6877338718601274588 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4293834643907707631, guid: 3af1b9b5c62e81746b2d3689cecf52c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 6877338718601274586}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a7e275078c57044932a898c0566689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6955393704926506448
 PrefabInstance:
   m_ObjectHideFlags: 0

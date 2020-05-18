@@ -25,6 +25,23 @@ public class CarController : MonoBehaviour
         return currentFuel / maxFuel;
     }
 
+    public bool TryAddFuel(float fuel)
+    {
+        if (currentFuel < maxFuel)
+        {
+            currentFuel += fuel;
+
+            if(currentFuel > maxFuel)
+            {
+                currentFuel = maxFuel;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
     public void SetInputs(float verticalValue, float horizontalValue)
     {
         this.verticalValue = verticalValue;
@@ -55,7 +72,7 @@ public class CarController : MonoBehaviour
         }
         else
         {
-            currentFuel -= verticalValue * currentSpeed * fuelConsumption;
+            currentFuel -= Mathf.Abs(verticalValue * currentSpeed * fuelConsumption);
         }
 
         float verticalInputFactor = verticalValue;
