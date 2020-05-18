@@ -19,6 +19,7 @@ public class QuestsController : MonoBehaviour
         foreach (var place in questPlaces)
         {
             place.Init();
+            place.gameObject.SetActive(false);
         }
     }
 

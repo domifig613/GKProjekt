@@ -127,7 +127,7 @@ MonoBehaviour:
   questVisual: {fileID: 6404102244283142949}
   questCollider: {fileID: 799539006714796089}
   materialColorName: Rim Color
-  yRotationMesh: 20
+  yRotationMesh: 1
   IsUseNow: 0
 --- !u!1 &2212568184456631335
 GameObject:
@@ -402,5 +402,5 @@ MonoBehaviour:
   questVisual: {fileID: 979901201847198454}
   questCollider: {fileID: 3078677573614731430}
   materialColorName: Rim Color
-  yRotationMesh: 20
+  yRotationMesh: 1
   IsUseNow: 0
