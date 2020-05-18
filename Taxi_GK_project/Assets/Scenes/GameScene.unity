@@ -186,12 +186,12 @@ PrefabInstance:
     - target: {fileID: 3590309762764959543, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: fuelConsumption
-      value: 15
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22
+      value: -52
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
@@ -201,7 +201,7 @@ PrefabInstance:
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 215
+      value: 54
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
