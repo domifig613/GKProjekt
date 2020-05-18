@@ -7,10 +7,23 @@ public class CarController : MonoBehaviour
     [SerializeField] private float turningSpeed = 45f;
     [SerializeField] private AnimationCurve turningFactorBySpeed;
     [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private float maxFuel;
+    [SerializeField] private float fuelConsumption;
 
     private float currentSpeed = 0f;
     private float verticalValue = 0;
     private float horizontalValue = 0;
+    private float currentFuel;
+
+    private void Start()
+    {
+        currentFuel = maxFuel;
+    }
+
+    public float GetCurrentFuelPart()
+    {
+        return currentFuel / maxFuel;
+    }
 
     public void SetInputs(float verticalValue, float horizontalValue)
     {
@@ -36,16 +49,26 @@ public class CarController : MonoBehaviour
 
     private void HandleMoving()
     {
+        if(currentFuel <= 0f)
+        {
+            verticalValue = 0f;
+        }
+        else
+        {
+            currentFuel -= verticalValue * currentSpeed * fuelConsumption;
+        }
+
         float verticalInputFactor = verticalValue;
 
-        if (currentSpeed > 0.1 && verticalValue <= 0)
+        if (currentSpeed > 0.1 && verticalValue <= 0f)
         {
             verticalInputFactor = verticalValue - 0.3f;
         }
-        else if (currentSpeed < -0.1 && verticalValue <= 0)
+        else if (currentSpeed < -0.1 && verticalValue <= 0f)
         {
             verticalInputFactor = verticalValue + 0.3f;
         }
+
 
         currentSpeed += verticalInputFactor * acceleration * Time.fixedDeltaTime;
         currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed / 2f, maxSpeed);

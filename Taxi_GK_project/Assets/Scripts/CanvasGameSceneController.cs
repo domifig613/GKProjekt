@@ -7,9 +7,11 @@ using UnityEngine.UI;
 public class CanvasGameSceneController : MonoBehaviour
 {
     [SerializeField] private QuestsController questsController;
+    [SerializeField] private CarController carController;
     [SerializeField] private TMPro.TMP_Text cashText;
     [SerializeField] private TMPro.TMP_Text currentQuestInfo;
     [SerializeField] private GameObject map;
+    [SerializeField] private Image fuelImage;
 
     [SerializeField] private List<GameObject> questBigMapTags;
 
@@ -30,6 +32,17 @@ public class CanvasGameSceneController : MonoBehaviour
         foreach (var tag in questBigMapTags)
         {
             tag.SetActive(false);
+        }
+
+        StartCoroutine(UpadateVisualFuelCoroutine());
+    }
+
+    private IEnumerator UpadateVisualFuelCoroutine()
+    {
+        while (true)
+        {
+            fuelImage.fillAmount = carController.GetCurrentFuelPart();
+            yield return 10;
         }
     }
 
