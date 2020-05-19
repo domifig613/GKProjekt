@@ -28,7 +28,7 @@ public class MinimapController : MonoBehaviour
             Vector2 playerPos = new Vector2(player.position.x, player.position.z);
             Vector2 iconPos = new Vector2(icon.gameObject.transform.position.x, icon.gameObject.transform.position.z);
             float distance = Vector2.Distance(playerPos, iconPos);
-            print(playerPos + "        " + iconPos);
+
             if (distance > maxDistance)
             {
                 icon.image.enabled = false;
@@ -82,6 +82,7 @@ public class MinimapController : MonoBehaviour
                 gameObject = gasStation
             });
         }
+
         foreach (var quest in questsList)
         {
             Image icon = Instantiate(questImage);
