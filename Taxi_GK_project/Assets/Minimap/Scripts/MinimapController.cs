@@ -10,29 +10,29 @@ public class MapObject
 
 public class MinimapController : MonoBehaviour
 {
-    public Transform player;
-    public Camera minimapCamera;
-    public Image questImage;
-    public Image gasStationImage;
-    public Color gasStationColor;
-    public float maxDistance;
-    public List<GameObject> gasStationList = new List<GameObject>();
-    public List<GameObject> questsList = new List<GameObject>();
+    [SerializeField] Transform player;
+    [SerializeField] Camera minimapCamera;
+    [SerializeField] Image questImage;
+    [SerializeField] Image gasStationImage;
+    [SerializeField] Color gasStationColor;
+    [SerializeField] float maxDistance;
+    [SerializeField] GameObject questTags;
+    [SerializeField] QuestConfig questConfig;
+    [SerializeField] List<GameObject> gasStationList = new List<GameObject>();
+    [SerializeField] List<GameObject> questsList = new List<GameObject>();
     private List<MapObject> gasStationOnMapList = new List<MapObject>();
     private List<MapObject> questsOnMapList = new List<MapObject>();
 
-    private void DrawMapIcons()
+    private void DrawMapIcons(MapObject icon)
     {
-        foreach (var icon in gasStationOnMapList)
-        {
             Vector2 playerPos = new Vector2(player.position.x, player.position.z);
             Vector2 iconPos = new Vector2(icon.gameObject.transform.position.x, icon.gameObject.transform.position.z);
             float distance = Vector2.Distance(playerPos, iconPos);
 
-            if (distance > maxDistance)
+            if (distance > maxDistance && !icon.image.color.Equals(questConfig.FinishingQuestColor))
             {
                 icon.image.enabled = false;
-                continue;
+                return;
             }
             else
             {
@@ -67,7 +67,7 @@ public class MinimapController : MonoBehaviour
 
             icon.image.transform.position = screenPos;
             icon.image.transform.SetAsLastSibling();
-        }
+        
     }
     
     private void Start()
@@ -82,7 +82,7 @@ public class MinimapController : MonoBehaviour
                 gameObject = gasStation
             });
         }
-
+        
         foreach (var quest in questsList)
         {
             Image icon = Instantiate(questImage);
@@ -96,6 +96,26 @@ public class MinimapController : MonoBehaviour
     
     private void Update()
     {
-        DrawMapIcons();
+        Debug.Log(questTags.transform.childCount);
+        for (int i = 0; i < questTags.transform.childCount; i++)
+        {
+            GameObject obj = questTags.transform.GetChild(i).gameObject;
+            Image image = obj.GetComponent<Image>();
+            if (obj.activeSelf)
+            {
+                questsOnMapList[i].image.color = image.color;
+                questsOnMapList[i].image.enabled = true;
+                DrawMapIcons(questsOnMapList[i]);
+            }
+            else
+            {
+                questsOnMapList[i].image.enabled = false;
+            }
+        }
+        foreach (var icon in gasStationOnMapList)
+        {
+            DrawMapIcons(icon);
+        }
+        
     }
 }
