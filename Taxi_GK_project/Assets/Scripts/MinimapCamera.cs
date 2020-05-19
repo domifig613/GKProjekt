@@ -11,5 +11,7 @@ public class MinimapCamera : MonoBehaviour
         Vector3 position = player.position;
         position.y = transform.position.y;
         transform.position = position;
+
+        transform.rotation = Quaternion.Euler(90f, player.eulerAngles.y, 0f);
     }
 }
