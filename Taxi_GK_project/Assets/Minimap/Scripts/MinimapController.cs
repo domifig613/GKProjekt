@@ -96,7 +96,6 @@ public class MinimapController : MonoBehaviour
     
     private void Update()
     {
-        Debug.Log(questTags.transform.childCount);
         for (int i = 0; i < questTags.transform.childCount; i++)
         {
             GameObject obj = questTags.transform.GetChild(i).gameObject;
