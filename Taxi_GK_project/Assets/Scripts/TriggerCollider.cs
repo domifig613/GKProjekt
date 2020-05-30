@@ -10,12 +10,18 @@ public class TriggerCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        collisionCount++;
+        if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            collisionCount++;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        collisionCount--;
+        if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            collisionCount--;
+        }
     }
 
     private void Update()

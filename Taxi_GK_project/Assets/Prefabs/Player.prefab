@@ -143,9 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carController: {fileID: 3590309762764959543}
-  wheelsColiders:
-  - {fileID: 0}
-  - {fileID: 0}
+  frontBumper: {fileID: 0}
+  rearBumper: {fileID: 0}
   canvasGameSceneController: {fileID: 0}
   gasStationController: {fileID: 0}
 --- !u!114 &3590309762764959543
@@ -308,12 +307,12 @@ PrefabInstance:
     - target: {fileID: 678415706512063038, guid: 50477af197889084e8a6d97f2b73b73b,
         type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 678415706512063038, guid: 50477af197889084e8a6d97f2b73b73b,
         type: 3}
       propertyPath: m_Drag
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 678415706512063038, guid: 50477af197889084e8a6d97f2b73b73b,
         type: 3}
@@ -323,7 +322,7 @@ PrefabInstance:
     - target: {fileID: 678415706512063038, guid: 50477af197889084e8a6d97f2b73b73b,
         type: 3}
       propertyPath: m_AngularDrag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8855618483053742075, guid: 50477af197889084e8a6d97f2b73b73b,
         type: 3}
