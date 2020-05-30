@@ -1,31 +1,20 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerInputController : MonoBehaviour
 {
     [SerializeField] CarController carController;
-    [SerializeField] List<WheelOnTriggerCollider> wheelsColiders;
+    [SerializeField] TriggerCollider frontBumper;
+    [SerializeField] TriggerCollider rearBumper;
     [SerializeField] CanvasGameSceneController canvasGameSceneController;
     [SerializeField] GasStationController gasStationController;
 
     private float verticalInput = 0f;
     private float horizontalInput = 0f;
 
-    private bool wheelsOnStreet = true;
-
     private void Update()
     {
-        wheelsOnStreet = wheelsColiders[0].wheelOnStreet || wheelsColiders[1].wheelOnStreet;
-
-        if (wheelsOnStreet)
-        {
-            CaptureInput();
-            carController.SetInputs(verticalInput, horizontalInput);
-        }
-        else
-        {
-            carController.SetInputs(0, 0);
-        }
+        CaptureInput();
+        carController.SetInputs(verticalInput, horizontalInput, frontBumper.collisionDetected, rearBumper.collisionDetected);
 
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -43,7 +32,7 @@ public class PlayerInputController : MonoBehaviour
             {
                 if (PlayerController.Cash > 0)
                 {
-                    if(carController.TryAddFuel(gasStationController.FuelPerClick))
+                    if (carController.TryAddFuel(gasStationController.FuelPerClick))
                     {
                         PlayerController.RemoveCash(gasStationController.PriceForFuel);
                     }

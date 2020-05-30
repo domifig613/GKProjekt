@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WheelOnTriggerCollider : MonoBehaviour
+public class TriggerCollider : MonoBehaviour
 {
-    public bool wheelOnStreet { private set; get; }
+    public bool collisionDetected { private set; get; }
     
     private int collisionCount = 0;
 
@@ -20,6 +20,6 @@ public class WheelOnTriggerCollider : MonoBehaviour
 
     private void Update()
     {
-        wheelOnStreet = collisionCount > 0;
+        collisionDetected = collisionCount > 0;
     }
 }

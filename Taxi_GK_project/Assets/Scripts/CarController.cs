@@ -14,6 +14,8 @@ public class CarController : MonoBehaviour
     private float verticalValue = 0;
     private float horizontalValue = 0;
     private float currentFuel;
+    private bool frontCollision = false;
+    private bool rearCollision = false;
 
     private void Start()
     {
@@ -42,10 +44,12 @@ public class CarController : MonoBehaviour
         return false;
     }
 
-    public void SetInputs(float verticalValue, float horizontalValue)
+    public void SetInputs(float verticalValue, float horizontalValue, bool frontCollision, bool rearCollision)
     {
         this.verticalValue = verticalValue;
         this.horizontalValue = horizontalValue;
+        this.frontCollision = frontCollision;
+        this.rearCollision = rearCollision;
     }
 
     private void FixedUpdate()
@@ -95,6 +99,17 @@ public class CarController : MonoBehaviour
             currentSpeed = 0;
         }
 
-        rigidbody.transform.position += rigidbody.transform.forward * currentSpeed * Time.fixedDeltaTime;
+        Vector3 forward = new Vector3(rigidbody.transform.forward.x, 0f, rigidbody.transform.forward.z);
+            
+        if(rearCollision && currentSpeed < 0f)
+        {
+            currentSpeed = 0f;
+        }
+        else if(frontCollision && currentSpeed > 0f)
+        {
+            currentSpeed = 0f;
+        }
+
+        rigidbody.transform.position += forward * currentSpeed * Time.fixedDeltaTime;
     }
 }

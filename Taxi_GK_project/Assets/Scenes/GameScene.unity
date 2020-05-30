@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4473291, g: 0.4926942, b: 0.550651, a: 1}
+  m_IndirectSpecularColor: {r: 0.44732946, g: 0.49269432, b: 0.5506516, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -191,17 +191,17 @@ PrefabInstance:
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -52
+      value: -67.86
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9
+      value: 0.238
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 54
+      value: 235.7
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070977, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
@@ -256,7 +256,7 @@ PrefabInstance:
     - target: {fileID: 8877210118744597035, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_Mass
-      value: 300
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 6644290155595502591, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
@@ -305,6 +305,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8239362921413070978, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
+      propertyPath: wheelsColiders.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239362921413070978, guid: d4079a2b52a6ec046b68f1c56b492059,
+        type: 3}
       propertyPath: carController
       value: 
       objectReference: {fileID: 2066760033}
@@ -312,12 +317,12 @@ PrefabInstance:
         type: 3}
       propertyPath: wheelsColiders.Array.data[0]
       value: 
-      objectReference: {fileID: 2041508683}
+      objectReference: {fileID: 1080820397}
     - target: {fileID: 8239362921413070978, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: wheelsColiders.Array.data[1]
       value: 
-      objectReference: {fileID: 1346003816}
+      objectReference: {fileID: 189079271}
     - target: {fileID: 8239362921413070978, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: canvasGameSceneController
@@ -328,6 +333,26 @@ PrefabInstance:
       propertyPath: gasStationController
       value: 
       objectReference: {fileID: 391458871}
+    - target: {fileID: 8239362921413070978, guid: d4079a2b52a6ec046b68f1c56b492059,
+        type: 3}
+      propertyPath: wheelsColiders.Array.data[2]
+      value: 
+      objectReference: {fileID: 2041508683}
+    - target: {fileID: 8239362921413070978, guid: d4079a2b52a6ec046b68f1c56b492059,
+        type: 3}
+      propertyPath: wheelsColiders.Array.data[3]
+      value: 
+      objectReference: {fileID: 1346003816}
+    - target: {fileID: 8239362921413070978, guid: d4079a2b52a6ec046b68f1c56b492059,
+        type: 3}
+      propertyPath: frontBumper
+      value: 
+      objectReference: {fileID: 792037488}
+    - target: {fileID: 8239362921413070978, guid: d4079a2b52a6ec046b68f1c56b492059,
+        type: 3}
+      propertyPath: rearBumper
+      value: 
+      objectReference: {fileID: 62298527}
     - target: {fileID: 8218122881665251985, guid: d4079a2b52a6ec046b68f1c56b492059,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -630,6 +655,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 47301940}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &62298527 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1990728829579964561, guid: d4079a2b52a6ec046b68f1c56b492059,
+    type: 3}
+  m_PrefabInstance: {fileID: 31723085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8d7b5aab08f0e4e9d4717c63bc30c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &68956570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1180,6 +1217,18 @@ Transform:
   m_Father: {fileID: 386510302}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &189079271 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5478308952725530390, guid: d4079a2b52a6ec046b68f1c56b492059,
+    type: 3}
+  m_PrefabInstance: {fileID: 31723085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8d7b5aab08f0e4e9d4717c63bc30c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &208965974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2170,6 +2219,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775856449}
   m_CullTransparentMesh: 0
+--- !u!114 &792037488 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 345631447862243944, guid: d4079a2b52a6ec046b68f1c56b492059,
+    type: 3}
+  m_PrefabInstance: {fileID: 31723085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8d7b5aab08f0e4e9d4717c63bc30c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &817634901 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1077942383953347666, guid: ad10f7fc266d2e14c80e66553cde7f8d,
@@ -2553,6 +2614,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 390dfdce343a32d4b8340c2f17f0a3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1080820397 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1750391405910510997, guid: d4079a2b52a6ec046b68f1c56b492059,
+    type: 3}
+  m_PrefabInstance: {fileID: 31723085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8d7b5aab08f0e4e9d4717c63bc30c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1111498466 stripped
