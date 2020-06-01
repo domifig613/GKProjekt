@@ -112,18 +112,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &3771146 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8833486335422498410, guid: df382a8d236544c4ab9c4b28c2600e81,
-    type: 3}
-  m_PrefabInstance: {fileID: 89134602}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 108768974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 390dfdce343a32d4b8340c2f17f0a3cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &31723085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -550,6 +538,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4079a2b52a6ec046b68f1c56b492059, type: 3}
+--- !u!114 &43486571 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2819288897661953075, guid: df382a8d236544c4ab9c4b28c2600e81,
+    type: 3}
+  m_PrefabInstance: {fileID: 89134602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390dfdce343a32d4b8340c2f17f0a3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &47301940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1119,12 +1119,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2684512092444186704}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &108768974 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4890284919948526350, guid: df382a8d236544c4ab9c4b28c2600e81,
-    type: 3}
-  m_PrefabInstance: {fileID: 89134602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &155743545 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6386021864059176047, guid: 3af1b9b5c62e81746b2d3689cecf52c2,
@@ -1186,7 +1180,7 @@ MonoBehaviour:
   - {fileID: 817634901}
   - {fileID: 1398601118}
   - {fileID: 1698496003}
-  - {fileID: 3771146}
+  - {fileID: 43486571}
   canvasController: {fileID: 599111452}
 --- !u!4 &166302499
 Transform:
@@ -2511,7 +2505,7 @@ PrefabInstance:
         type: 3}
       propertyPath: questsList.Array.data[12]
       value: 
-      objectReference: {fileID: 108768974}
+      objectReference: {fileID: 0}
     - target: {fileID: 2819614975475037266, guid: f3d2aebeb6aede349ba80e87029ad51f,
         type: 3}
       propertyPath: maxDistance
