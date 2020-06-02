@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GasStationController : MonoBehaviour
 {
-    [SerializeField] List<GasStationVisualController> gasStationVisualControllers;
+    [SerializeField] List<CarPointVisualController> gasStationVisualControllers;
     [SerializeField] private int priceForFuel;
     [SerializeField] private float fuelPerClick;
 
@@ -23,7 +23,7 @@ public class GasStationController : MonoBehaviour
     {
         foreach (var gasStation in gasStationVisualControllers)
         {
-            if(gasStation.IsCarInGasStation())
+            if(gasStation.IsCarInCarPoint())
             {
                 return true;
             }

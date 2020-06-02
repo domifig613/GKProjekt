@@ -9,6 +9,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private float maxFuel;
     [SerializeField] private float fuelConsumption;
+    [SerializeField] private float maxDurability;
+    [SerializeField] private float currentDurability;
 
     private float currentSpeed = 0f;
     private float verticalValue = 0;
@@ -20,11 +22,27 @@ public class CarController : MonoBehaviour
     private void Start()
     {
         currentFuel = maxFuel;
+        currentDurability = maxDurability;
+    }
+
+    public void RemoveDurability(int durabilityToRemove)
+    {
+        currentDurability -= durabilityToRemove;
+
+        if(currentDurability < 0)
+        {
+            currentDurability = 0;
+        }
     }
 
     public float GetCurrentFuelPart()
     {
         return currentFuel / maxFuel;
+    }
+
+    public float GetCurrentDurability()
+    {
+        return currentDurability / maxDurability;
     }
 
     public bool TryAddFuel(float fuel)
@@ -38,6 +56,17 @@ public class CarController : MonoBehaviour
                 currentFuel = maxFuel;
             }
 
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryAddDurability()
+    {
+        if (currentDurability < maxDurability)
+        {
+            currentDurability = maxDurability;
             return true;
         }
 
@@ -70,7 +99,7 @@ public class CarController : MonoBehaviour
 
     private void HandleMoving()
     {
-        if(currentFuel <= 0f)
+        if(currentFuel <= 0f || currentDurability <=0f)
         {
             verticalValue = 0f;
         }

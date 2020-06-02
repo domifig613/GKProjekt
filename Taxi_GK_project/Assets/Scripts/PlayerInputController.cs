@@ -7,13 +7,26 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField] TriggerCollider rearBumper;
     [SerializeField] CanvasGameSceneController canvasGameSceneController;
     [SerializeField] GasStationController gasStationController;
+    [SerializeField] MechanicController mechanicController;
 
     private float verticalInput = 0f;
     private float horizontalInput = 0f;
+    private bool wasCollisionWithWallInLastCheck = false;
 
     private void Update()
     {
         CaptureInput();
+
+        if (!wasCollisionWithWallInLastCheck && (frontBumper.collisionDetected || rearBumper.collisionDetected))
+        {
+            wasCollisionWithWallInLastCheck = !wasCollisionWithWallInLastCheck;
+            carController.RemoveDurability(5);
+        }
+        else
+        {
+            wasCollisionWithWallInLastCheck = frontBumper.collisionDetected || rearBumper.collisionDetected;
+        }
+
         carController.SetInputs(verticalInput, horizontalInput, frontBumper.collisionDetected, rearBumper.collisionDetected);
 
         if (Input.GetKeyDown(KeyCode.M))
@@ -36,6 +49,16 @@ public class PlayerInputController : MonoBehaviour
                     {
                         PlayerController.RemoveCash(gasStationController.PriceForFuel);
                     }
+                }
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            if(mechanicController.CanFixCar() && PlayerController.Cash >= mechanicController.PriceForFixCar)
+            {
+                if(carController.TryAddDurability())
+                {
+                    PlayerController.RemoveCash(mechanicController.PriceForFixCar);
                 }
             }
         }

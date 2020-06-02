@@ -11,6 +11,7 @@ public class CanvasGameSceneController : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text cashText;
     [SerializeField] private TMPro.TMP_Text currentQuestInfo;
     [SerializeField] private GameObject map;
+    [SerializeField] private Image durabilityImage;
     [SerializeField] private Image fuelImage;
 
     [SerializeField] private List<GameObject> questBigMapTags;
@@ -35,6 +36,7 @@ public class CanvasGameSceneController : MonoBehaviour
         }
 
         StartCoroutine(UpadateVisualFuelCoroutine());
+        StartCoroutine(UpadateVisualDurabilityCoroutine());
     }
 
     private IEnumerator UpadateVisualFuelCoroutine()
@@ -42,6 +44,15 @@ public class CanvasGameSceneController : MonoBehaviour
         while (true)
         {
             fuelImage.fillAmount = carController.GetCurrentFuelPart();
+            yield return 10;
+        }
+    }
+
+    private IEnumerator UpadateVisualDurabilityCoroutine()
+    {
+        while (true)
+        {
+            durabilityImage.fillAmount = carController.GetCurrentDurability();
             yield return 10;
         }
     }

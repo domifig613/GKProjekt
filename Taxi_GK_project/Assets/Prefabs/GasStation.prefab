@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a7e275078c57044932a898c0566689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gasStationCollider: {fileID: 2330848115920461065}
-  gasStation: {fileID: 2772908867297902865}
+  carPointCollider: {fileID: 2330848115920461065}
+  carPointGameObject: {fileID: 2772908867297902865}
   yRotationMesh: 1
 --- !u!1 &2772908867297902865
 GameObject:
