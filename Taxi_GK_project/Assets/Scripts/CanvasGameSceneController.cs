@@ -1,16 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using UnityEngine.UI;
 
 public class CanvasGameSceneController : MonoBehaviour
 {
     [SerializeField] private QuestsController questsController;
+    [SerializeField] private GasStationController gasStationController;
+    [SerializeField] private MechanicController mechanicController;
     [SerializeField] private CarController carController;
     [SerializeField] private TMPro.TMP_Text cashText;
     [SerializeField] private TMPro.TMP_Text currentQuestInfo;
     [SerializeField] private GameObject map;
+    [SerializeField] private GameObject fuelPopup;
+    [SerializeField] private GameObject mechanicPopup;
+    [SerializeField] private GameObject helpPopup;
+    [SerializeField] private GameObject garagePopup;
+    [SerializeField] private GameObject winPopup;
+    [SerializeField] private GameObject defeatPopup;
     [SerializeField] private Image durabilityImage;
     [SerializeField] private Image fuelImage;
 
@@ -25,6 +33,7 @@ public class CanvasGameSceneController : MonoBehaviour
     private void Start()
     {
         CloseMap();
+        ClosePopups();
         RefreshCash();
         RefreshQuestInfo();
         PlayerController.OnCashRefresh += RefreshCash;
@@ -37,6 +46,39 @@ public class CanvasGameSceneController : MonoBehaviour
 
         StartCoroutine(UpadateVisualFuelCoroutine());
         StartCoroutine(UpadateVisualDurabilityCoroutine());
+        StartCoroutine(UpdatePopupsState());
+    }
+
+    private IEnumerator UpdatePopupsState()
+    {
+        while (true)
+        {
+            winPopup.SetActive(PlayerController.IsPlayerWin() && !defeatPopup.activeSelf);
+            defeatPopup.SetActive(carController.CurrentSpeed <= 1f
+                && ((gasStationController.PriceForFuel > PlayerController.Cash && carController.GetCurrentFuelPart() <= 0f)
+                || (mechanicController.PriceForFixCar > PlayerController.Cash && carController.GetCurrentDurability() <= 0f)) && !winPopup.activeSelf);
+
+            fuelPopup.SetActive(gasStationController.CanGetFuel() && carController.GetCurrentFuelPart() != 1f && PlayerController.Cash >= gasStationController.PriceForFuel && !winPopup.activeSelf && !defeatPopup.activeSelf);
+            mechanicPopup.SetActive(mechanicController.CanFixCar() && carController.GetCurrentDurability() != 1f && PlayerController.Cash >= mechanicController.PriceForFixCar && !winPopup.activeSelf && !defeatPopup.activeSelf);
+            helpPopup.SetActive(!fuelPopup.activeSelf && !mechanicPopup.activeSelf && (carController.GetCurrentFuelPart() <= 0f || carController.GetCurrentDurability() <= 0f) && !winPopup.activeSelf && !defeatPopup.activeSelf);
+
+            if (winPopup.activeSelf || defeatPopup.activeSelf)
+            {
+                Time.timeScale = 0;
+            }
+
+            yield return 30;
+        }
+    }
+
+    private void ClosePopups()
+    {
+        fuelPopup.SetActive(false);
+        mechanicPopup.SetActive(false);
+        garagePopup.SetActive(false);
+        helpPopup.SetActive(false);
+        winPopup.SetActive(false);
+        defeatPopup.SetActive(false);
     }
 
     private IEnumerator UpadateVisualFuelCoroutine()
@@ -82,7 +124,7 @@ public class CanvasGameSceneController : MonoBehaviour
     {
         isQuestActive = PlayerController.QuestIsActive();
 
-        if(isQuestActive)
+        if (isQuestActive)
         {
             Quest currentQuest = PlayerController.currentQuest;
             deadlineToFinishQuest = new TimeSpan();
@@ -96,6 +138,11 @@ public class CanvasGameSceneController : MonoBehaviour
             currentQuestInfo.text = NO_ACTIVE_QUEST_INFO;
             currentQuestInfo.color = Color.white;
         }
+    }
+
+    public void RestartGame()
+    {
+        PlayerController.RestartGame();
     }
 
     #region map

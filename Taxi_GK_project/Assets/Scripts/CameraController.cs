@@ -10,9 +10,10 @@ public class CameraController : MonoBehaviour
     private Camera camera;
     private Vector3 distanceFromTarget;
 
-    private void Start()
+    private void Awake()
     {
         camera = GetComponent<Camera>();
+        camera.transform.position += targetTransform.position;
         distanceFromTarget = camera.transform.position - targetTransform.position;
     }
 

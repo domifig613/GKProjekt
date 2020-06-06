@@ -1,4 +1,7 @@
 ﻿using System;
+using UnityEditor.PackageManager;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class PlayerController
 {
@@ -11,6 +14,13 @@ public static class PlayerController
     public static bool QuestIsActive()
     {
         return currentQuest != null;
+    }
+
+    public static int CampaingQuestsDone { get; private set; } = 0;
+
+    public static void AddCampaignQuestsDone()
+    {
+        CampaingQuestsDone++;
     }
 
     public static bool TrySetActiveQuest(Quest potentialNewQuest)
@@ -45,10 +55,26 @@ public static class PlayerController
 
         if (Cash <= 0)
         {
-            //game over? :P
+            //game over?
             Cash = 0;
         }
 
         OnCashRefresh();
+    }
+
+    public static bool IsPlayerWin()
+    {
+        return CampaingQuestsDone >= 1;
+    }
+
+    public static void RestartGame()
+    {
+        Cash = 100;
+        currentQuest = null;
+        CampaingQuestsDone = 0;
+        OnCashRefresh = delegate { };
+        OnQuestStateChanged = delegate { };
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

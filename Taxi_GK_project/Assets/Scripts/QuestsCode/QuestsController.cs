@@ -39,6 +39,11 @@ public class QuestsController : MonoBehaviour
         {
             if(quests[i].QuestDone)
             {
+                if(quests[i].questType == QuestType.campaign)
+                {
+                    PlayerController.AddCampaignQuestsDone();
+                }
+
                 PlayerController.AddCash(quests[i].Prize);
                 PlayerController.EndCurrentQuest();
                 canvasController.RemoveTagFromMap(questPlaces.IndexOf(quests[i].EndPoint));

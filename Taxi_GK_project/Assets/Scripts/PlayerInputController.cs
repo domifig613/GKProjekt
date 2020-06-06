@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -12,6 +14,16 @@ public class PlayerInputController : MonoBehaviour
     private float verticalInput = 0f;
     private float horizontalInput = 0f;
     private bool wasCollisionWithWallInLastCheck = false;
+    private bool mechanicCorStart = false;
+
+    private Vector3 startPosition = new Vector3(65.3f, 0f, -245.5f);
+    private Vector3 mechanicPosition = new Vector3(65.3f, 0f, -230.5f);
+
+    private void Start()
+    {
+        carController.SetPosition(startPosition);
+        //gameObject.transform.position = startPosition;
+    }
 
     private void Update()
     {
@@ -54,14 +66,41 @@ public class PlayerInputController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            if(mechanicController.CanFixCar() && PlayerController.Cash >= mechanicController.PriceForFixCar)
+            if (mechanicController.CanFixCar() && PlayerController.Cash >= mechanicController.PriceForFixCar)
             {
-                if(carController.TryAddDurability())
+                if (carController.TryAddDurability())
                 {
                     PlayerController.RemoveCash(mechanicController.PriceForFixCar);
                 }
             }
         }
+        else if (Input.GetKey(KeyCode.H) && !mechanicCorStart && carController.CurrentSpeed <= 1.0f)
+        {
+            StartCoroutine(CarToMechanicPositionCor());
+        }
+    }
+
+    private IEnumerator CarToMechanicPositionCor()
+    {
+        mechanicCorStart = true;
+        yield return new WaitForSeconds(0.5f);
+
+        if (Input.GetKey(KeyCode.H) && carController.CurrentSpeed <= 1.0f)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            if (Input.GetKey(KeyCode.H) && carController.CurrentSpeed <= 1.0f)
+            {
+                yield return new WaitForSeconds(0.5f);
+
+                if (Input.GetKey(KeyCode.H) && carController.CurrentSpeed <= 1.0f)
+                {
+                    carController.SetPosition(mechanicPosition);
+                }
+            }
+        }
+
+        mechanicCorStart = false;
     }
 
     private void ChangeGameStatus()

@@ -11,7 +11,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float maxDurability;
     [SerializeField] private float currentDurability;
 
-    private float currentSpeed = 0f;
+    public float CurrentSpeed { get;  private set; } = 0f;
     private float verticalValue = 0;
     private float horizontalValue = 0;
     private float currentFuel;
@@ -22,6 +22,11 @@ public class CarController : MonoBehaviour
     {
         currentFuel = maxFuel;
         currentDurability = maxDurability;
+    }
+
+    public void SetPosition(Vector3 newPos)
+    {
+        rigidbody.gameObject.transform.localPosition = newPos;
     }
 
     public void RemoveDurability(int durabilityToRemove)
@@ -88,10 +93,10 @@ public class CarController : MonoBehaviour
 
     private void HandleTurning()
     {
-        if (Mathf.Abs(currentSpeed) > 0.1)
+        if (Mathf.Abs(CurrentSpeed) > 0.1)
         {
-            float inputFactor = currentSpeed >= 0 ? horizontalValue : -horizontalValue;
-            float turnAngle = inputFactor * turningSpeed * Mathf.Abs(currentSpeed) / 10 * Time.fixedDeltaTime;
+            float inputFactor = CurrentSpeed >= 0 ? horizontalValue : -horizontalValue;
+            float turnAngle = inputFactor * turningSpeed * Mathf.Abs(CurrentSpeed) / 10 * Time.fixedDeltaTime;
             rigidbody.transform.Rotate(Vector3.up, turnAngle, Space.World);
         }
     }
@@ -104,40 +109,40 @@ public class CarController : MonoBehaviour
         }
         else
         {
-            currentFuel -= Mathf.Abs(verticalValue * currentSpeed * fuelConsumption);
+            currentFuel -= Mathf.Abs(verticalValue * CurrentSpeed * fuelConsumption);
         }
 
         float verticalInputFactor = verticalValue;
 
-        if (currentSpeed > 0.1 && verticalValue <= 0f)
+        if (CurrentSpeed > 0.1 && verticalValue <= 0f)
         {
             verticalInputFactor = verticalValue - 0.3f;
         }
-        else if (currentSpeed < -0.1 && verticalValue <= 0f)
+        else if (CurrentSpeed < -0.1 && verticalValue <= 0f)
         {
             verticalInputFactor = verticalValue + 0.3f;
         }
 
 
-        currentSpeed += verticalInputFactor * acceleration * Time.fixedDeltaTime;
-        currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed / 2f, maxSpeed);
+        CurrentSpeed += verticalInputFactor * acceleration * Time.fixedDeltaTime;
+        CurrentSpeed = Mathf.Clamp(CurrentSpeed, -maxSpeed / 2f, maxSpeed);
 
-        if (verticalValue == 0 && Mathf.Abs(currentSpeed) < 0.1)
+        if (verticalValue == 0 && Mathf.Abs(CurrentSpeed) < 0.1)
         {
-            currentSpeed = 0;
+            CurrentSpeed = 0;
         }
 
         Vector3 forward = new Vector3(rigidbody.transform.forward.x, 0f, rigidbody.transform.forward.z);
             
-        if(rearCollision && currentSpeed < 0f)
+        if(rearCollision && CurrentSpeed < 0f)
         {
-            currentSpeed = 0f;
+            CurrentSpeed = 0f;
         }
-        else if(frontCollision && currentSpeed > 0f)
+        else if(frontCollision && CurrentSpeed > 0f)
         {
-            currentSpeed = 0f;
+            CurrentSpeed = 0f;
         }
 
-        rigidbody.transform.position += forward * currentSpeed * Time.fixedDeltaTime;
+        rigidbody.transform.position += forward * CurrentSpeed * Time.fixedDeltaTime;
     }
 }
