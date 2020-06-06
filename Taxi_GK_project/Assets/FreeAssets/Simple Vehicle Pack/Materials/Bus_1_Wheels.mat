@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bus_1
+  m_Name: Bus_1_Wheels
   m_Shader: {fileID: 4800000, guid: bbe22d16b2dc01a40be914ad0714d732, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP
   m_LightmapFlags: 1

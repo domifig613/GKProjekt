@@ -5,7 +5,6 @@ public class CarController : MonoBehaviour
     [SerializeField] private float acceleration = 5f;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float turningSpeed = 45f;
-    [SerializeField] private AnimationCurve turningFactorBySpeed;
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private float maxFuel;
     [SerializeField] private float fuelConsumption;
