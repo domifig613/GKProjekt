@@ -23,6 +23,11 @@ public class MinimapController : MonoBehaviour
     private List<MapObject> gasStationOnMapList = new List<MapObject>();
     private List<MapObject> questsOnMapList = new List<MapObject>();
 
+    public void SetNewPlayer(Transform transform)
+    {
+        player = transform;
+    }
+
     private void DrawMapIcons(MapObject icon)
     {
             Vector2 playerPos = new Vector2(player.position.x, player.position.z);

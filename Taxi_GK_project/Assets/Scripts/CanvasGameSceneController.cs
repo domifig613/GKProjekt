@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class CanvasGameSceneController : MonoBehaviour
 {
     [SerializeField] private QuestsController questsController;
     [SerializeField] private GasStationController gasStationController;
     [SerializeField] private MechanicController mechanicController;
+    [SerializeField] private GarageController garageController;
     [SerializeField] private CarController carController;
     [SerializeField] private TMPro.TMP_Text cashText;
     [SerializeField] private TMPro.TMP_Text currentQuestInfo;
@@ -24,6 +26,14 @@ public class CanvasGameSceneController : MonoBehaviour
 
     [SerializeField] private List<GameObject> questBigMapTags;
 
+    [SerializeField] private GameObject garageView;
+    [SerializeField] private List<GameObject> carsPages;
+
+    [SerializeField] CityBuildingsController cityBuildingsConntroller;
+    [SerializeField] MinimapController minimapController;
+    [SerializeField] CameraController cameraController;
+    [SerializeField] MinimapCamera minimapCamera;
+
     private const string NO_ACTIVE_QUEST_INFO = "No active quest";
     private bool isQuestActive = false;
     private string currentQuestFinishPlace = "";
@@ -32,6 +42,7 @@ public class CanvasGameSceneController : MonoBehaviour
 
     private void Start()
     {
+        DisableGarage();
         CloseMap();
         ClosePopups();
         RefreshCash();
@@ -60,6 +71,7 @@ public class CanvasGameSceneController : MonoBehaviour
 
             fuelPopup.SetActive(gasStationController.CanGetFuel() && carController.GetCurrentFuelPart() != 1f && PlayerController.Cash >= gasStationController.PriceForFuel && !winPopup.activeSelf && !defeatPopup.activeSelf);
             mechanicPopup.SetActive(mechanicController.CanFixCar() && carController.GetCurrentDurability() != 1f && PlayerController.Cash >= mechanicController.PriceForFixCar && !winPopup.activeSelf && !defeatPopup.activeSelf);
+            garagePopup.SetActive(garageController.CanOpenGarage() && !winPopup.activeSelf && !defeatPopup.activeSelf);
             helpPopup.SetActive(!fuelPopup.activeSelf && !mechanicPopup.activeSelf && (carController.GetCurrentFuelPart() <= 0f || carController.GetCurrentDurability() <= 0f) && !winPopup.activeSelf && !defeatPopup.activeSelf);
 
             if (winPopup.activeSelf || defeatPopup.activeSelf)
@@ -184,4 +196,84 @@ public class CanvasGameSceneController : MonoBehaviour
     }
 
     #endregion
+
+
+    public void DisableGarage()
+    {
+        Time.timeScale = 1f;
+
+        garageView.SetActive(false);
+
+        foreach (var carPage in carsPages)
+        {
+            carPage.SetActive(false);
+        }
+    }
+
+    public void OpenGarage()
+    {
+        Time.timeScale = 0f;
+        garageView.SetActive(true);
+        carsPages[0].SetActive(true);
+        carsPages[0].GetComponent<CategoryInShopManager>().RefreshButtons(garageController.CheckCarBuyingStatus(0));
+    }
+
+    public void NextPageInGarage()
+    {
+        int index = carsPages.FindIndex(x => x.activeSelf);
+
+        if (index != carsPages.Count - 1)
+        {
+            carsPages[index].SetActive(false);
+            carsPages[index + 1].SetActive(true);
+            carsPages[index + 1].GetComponent<CategoryInShopManager>().RefreshButtons(garageController.CheckCarBuyingStatus(index+1));
+        }
+    }
+
+    public void PreviousPageInGarage()
+    {
+        int index = carsPages.FindIndex(x => x.activeSelf);
+
+        if (index != 0)
+        {
+            carsPages[index].SetActive(false);
+            carsPages[index - 1].SetActive(true);
+            carsPages[index - 1].GetComponent<CategoryInShopManager>().RefreshButtons(garageController.CheckCarBuyingStatus(index-1));
+        }
+    }
+
+    public void OnBuyCarButton(int index)
+    {
+        int price = carsPages[index].GetComponent<CategoryInShopManager>().Price;
+
+        if (PlayerController.Cash >= price)
+        {
+            PlayerController.RemoveCash(price);
+            carsPages[index].GetComponent<CategoryInShopManager>().RefreshButtons(true);
+            garageController.BuyCar(index);
+        }
+    }
+
+    public void OnEquipButton(int index)
+    {
+        if (index != carController.Index)
+        {
+            Vector3 carPosition = new Vector3(carController.GetComponentInChildren<Rigidbody>().transform.position.x, carController.GetComponentInChildren<Rigidbody>().transform.position.y, carController.GetComponentInChildren<Rigidbody>().transform.position.z);
+            GameObject player = carController.gameObject.transform.parent.gameObject;
+            garageController.ReturnCarToGarage(Instantiate(carController.gameObject), carController.Index);
+            Destroy(carController.gameObject);
+            GameObject newCarObject = garageController.GetCar(index);
+            newCarObject.transform.SetParent(player.transform);
+            newCarObject.GetComponentInChildren<Rigidbody>().transform.position = new Vector3(carPosition.x, carPosition.y, carPosition.z);
+            carController = newCarObject.GetComponent<CarController>();
+
+            cityBuildingsConntroller.SetNewCarTransfor(carController.GetComponentInChildren<Rigidbody>().transform);
+            minimapCamera.player = carController.GetComponentInChildren<Rigidbody>().transform;
+            cameraController.SetNewTarget(carController.GetComponentInChildren<Rigidbody>().transform);
+            minimapController.SetNewPlayer(carController.GetComponentInChildren<Rigidbody>().transform);
+            PlayerInputController inputController = carController.transform.GetComponentInParent<PlayerInputController>();
+
+            inputController.SetNewCar(carController, carController.transform.GetChild(0).transform.Find("FrontBumper").GetComponent<TriggerCollider>(), carController.transform.GetChild(0).transform.Find("RearBumper").GetComponent<TriggerCollider>());
+        }
+    }
 }

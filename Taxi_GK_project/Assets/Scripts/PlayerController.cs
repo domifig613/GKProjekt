@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public static class PlayerController
 {
     public static Quest currentQuest { get; private set; }
-    public static int Cash { get; private set; } = 100;
+    public static int Cash { get; private set; } = 10000;
 
     public static Action OnCashRefresh = delegate { };
     public static Action OnQuestStateChanged = delegate { };
@@ -64,7 +64,7 @@ public static class PlayerController
 
     public static bool IsPlayerWin()
     {
-        return CampaingQuestsDone >= 1;
+        return CampaingQuestsDone >= 5;
     }
 
     public static void RestartGame()

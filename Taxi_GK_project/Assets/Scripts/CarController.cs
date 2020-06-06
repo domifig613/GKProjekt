@@ -10,6 +10,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float fuelConsumption;
     [SerializeField] private float maxDurability;
     [SerializeField] private float currentDurability;
+    [SerializeField] private int index;
 
     public float CurrentSpeed { get;  private set; } = 0f;
     private float verticalValue = 0;
@@ -17,6 +18,7 @@ public class CarController : MonoBehaviour
     private float currentFuel;
     private bool frontCollision = false;
     private bool rearCollision = false;
+    public int Index => index;
 
     private void Start()
     {
@@ -132,7 +134,7 @@ public class CarController : MonoBehaviour
             CurrentSpeed = 0;
         }
 
-        Vector3 forward = new Vector3(rigidbody.transform.forward.x, 0f, rigidbody.transform.forward.z);
+        Vector3 forward = new Vector3(rigidbody.transform.forward.x, Mathf.Min(0, rigidbody.transform.forward.y), rigidbody.transform.forward.z);
             
         if(rearCollision && CurrentSpeed < 0f)
         {

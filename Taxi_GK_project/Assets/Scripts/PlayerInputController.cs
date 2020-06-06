@@ -10,6 +10,7 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField] CanvasGameSceneController canvasGameSceneController;
     [SerializeField] GasStationController gasStationController;
     [SerializeField] MechanicController mechanicController;
+    [SerializeField] GarageController garageController;
 
     private float verticalInput = 0f;
     private float horizontalInput = 0f;
@@ -22,7 +23,6 @@ public class PlayerInputController : MonoBehaviour
     private void Start()
     {
         carController.SetPosition(startPosition);
-        //gameObject.transform.position = startPosition;
     }
 
     private void Update()
@@ -74,6 +74,13 @@ public class PlayerInputController : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (garageController.CanOpenGarage())
+            {
+                canvasGameSceneController.OpenGarage();
+            }
+        }
         else if (Input.GetKey(KeyCode.H) && !mechanicCorStart && carController.CurrentSpeed <= 1.0f)
         {
             StartCoroutine(CarToMechanicPositionCor());
@@ -119,5 +126,12 @@ public class PlayerInputController : MonoBehaviour
     {
         verticalInput = Input.GetAxisRaw("Vertical");
         horizontalInput = Input.GetAxisRaw("Horizontal");
+    }
+
+    public void SetNewCar(CarController carController, TriggerCollider frontBumper, TriggerCollider rearBumper)
+    {
+        this.carController = carController;
+        this.frontBumper = frontBumper;
+        this.rearBumper = rearBumper;
     }
 }
