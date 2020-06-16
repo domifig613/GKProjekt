@@ -2,11 +2,12 @@
 
 public class DrawSphereInEditor : MonoBehaviour
 {
+    [SerializeField] Color color;
+
     [ExecuteInEditMode]
     void OnDrawGizmos()
     {
-        // Draw a semitransparent blue cube at the transforms position
-        Gizmos.color = new Color(0, 1, 1, 0.8f);
+        Gizmos.color = color;
         Gizmos.DrawSphere(transform.position, 0.25f);
     }
 }

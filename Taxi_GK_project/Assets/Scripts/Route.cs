@@ -9,6 +9,8 @@ public class Route : MonoBehaviour
 
     public Action<Collider, int> OnRouteTriggerAction = delegate { };
 
+    public int PointsLenght => points.Count;
+
     private void Start()
     {
         foreach (var point in points)

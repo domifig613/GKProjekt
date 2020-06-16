@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2990f61cf52212749b3dbd001b2d18a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 8
+  acceleration: 5
   maxSpeed: 10
   turningSpeed: 140
   rigidbody: {fileID: 673545204864971202}
