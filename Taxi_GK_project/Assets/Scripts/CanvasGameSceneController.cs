@@ -33,6 +33,7 @@ public class CanvasGameSceneController : MonoBehaviour
     [SerializeField] MinimapController minimapController;
     [SerializeField] CameraController cameraController;
     [SerializeField] MinimapCamera minimapCamera;
+    [SerializeField] PlayerIconController playerIconController;
 
     private const string NO_ACTIVE_QUEST_INFO = "No active quest";
     private bool isQuestActive = false;
@@ -260,7 +261,6 @@ public class CanvasGameSceneController : MonoBehaviour
         {
             Vector3 carPosition = new Vector3(carController.GetComponentInChildren<Rigidbody>().transform.position.x, carController.GetComponentInChildren<Rigidbody>().transform.position.y, carController.GetComponentInChildren<Rigidbody>().transform.position.z);
             GameObject player = carController.gameObject.transform.parent.gameObject;
-            garageController.ReturnCarToGarage(Instantiate(carController.gameObject), carController.Index);
             Destroy(carController.gameObject);
             GameObject newCarObject = garageController.GetCar(index);
             newCarObject.transform.SetParent(player.transform);
@@ -271,6 +271,7 @@ public class CanvasGameSceneController : MonoBehaviour
             minimapCamera.player = carController.GetComponentInChildren<Rigidbody>().transform;
             cameraController.SetNewTarget(carController.GetComponentInChildren<Rigidbody>().transform);
             minimapController.SetNewPlayer(carController.GetComponentInChildren<Rigidbody>().transform);
+            playerIconController.SetNewPlayer(carController.GetComponentInChildren<Rigidbody>().transform);
             PlayerInputController inputController = carController.transform.GetComponentInParent<PlayerInputController>();
 
             inputController.SetNewCar(carController, carController.transform.GetChild(0).transform.Find("FrontBumper").GetComponent<TriggerCollider>(), carController.transform.GetChild(0).transform.Find("RearBumper").GetComponent<TriggerCollider>());

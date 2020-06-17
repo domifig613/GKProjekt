@@ -11264,6 +11264,7 @@ MonoBehaviour:
   minimapController: {fileID: 282858727}
   cameraController: {fileID: 2030793168}
   minimapCamera: {fileID: 270145640}
+  playerIconController: {fileID: 1437256499}
 --- !u!1001 &599425005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14313,10 +14314,17 @@ MonoBehaviour:
   - {fileID: 1224902024}
   - {fileID: 1035186593}
   carsPrefabs:
+  - {fileID: 1959030373088092, guid: afe119e8dc23a3e4ba9ea217f6f7a477, type: 3}
+  - {fileID: 1959030373088092, guid: 2723474b581a5a340bff9e2069b7703d, type: 3}
+  - {fileID: 1646981259178978, guid: 67cde52e185472b43925696540ea8957, type: 3}
+  - {fileID: 1646981259178978, guid: 23d1006d241e99b488f3447d40fa9346, type: 3}
+  - {fileID: 1646981259178978, guid: aeddb693ef7b7f7419b25347b6da3cb5, type: 3}
+  - {fileID: 1646981259178978, guid: 9b0e094ecffb86b498acb983b2facd89, type: 3}
+  - {fileID: 1646981259178978, guid: 71d9d00615bc4be43bb8642999d09fa6, type: 3}
   - {fileID: 1646981259178978, guid: 0eda42544ac459842a10d0a7c08b93ea, type: 3}
   carControllerPrefab: {fileID: 4839306861288695752, guid: 0768473b08d6b5a4cb8d396f9b33c399,
     type: 3}
-  routesIndexCounts: 0100000000000000000000000000000028000000
+  routesIndexCounts: 04000000040000003c0000000a00000050000000
   controllerParent: {fileID: 1422622512}
   carParent: {fileID: 176801972}
 --- !u!4 &776664726
@@ -19850,11 +19858,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3558492955126232725, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2525134619936401845, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
         type: 3}
       propertyPath: color.r
@@ -19873,6 +19876,11 @@ PrefabInstance:
     - target: {fileID: 2525134619936401845, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
         type: 3}
       propertyPath: color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558492955126232725, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -21574,11 +21582,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3558492955126232725, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2525134619936401845, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
         type: 3}
       propertyPath: color.r
@@ -21597,6 +21600,11 @@ PrefabInstance:
     - target: {fileID: 2525134619936401845, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
         type: 3}
       propertyPath: color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558492955126232725, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -27129,6 +27137,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa36a17e773553a48983f57a45a77c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1437256499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2684512092275757727, guid: 698b5a53948f25d4790e0efd36bd4a73,
+    type: 3}
+  m_PrefabInstance: {fileID: 2684512092444186704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62be16f3e2a191f4399c3cacfca22549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1437305071
@@ -33515,7 +33535,7 @@ PrefabInstance:
     - target: {fileID: 3251810009591663590, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.89
+      value: -40.07
       objectReference: {fileID: 0}
     - target: {fileID: 3251810009591663590, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
         type: 3}
@@ -37632,7 +37652,7 @@ PrefabInstance:
     - target: {fileID: 3251810009591663590, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.89
+      value: -40.33
       objectReference: {fileID: 0}
     - target: {fileID: 3251810009591663590, guid: 66fad1f9dbbc9074eb73a5fe10f38515,
         type: 3}

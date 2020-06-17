@@ -180,8 +180,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4870167790249810}
   - component: {fileID: 317999711299184741}
+  - component: {fileID: 3121930323016693684}
   m_Layer: 0
-  m_Name: Car_2
+  m_Name: ai4
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,14 +216,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 5
-  maxSpeed: 10
+  maxSpeed: 6
   turningSpeed: 140
   rigidbody: {fileID: 673545204864971202}
   maxFuel: 500000
-  fuelConsumption: 3
+  fuelConsumption: 0
   maxDurability: 40
   currentDurability: 0
   index: 4
+--- !u!114 &3121930323016693684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646981259178978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3896e664cf76a149a98f6f6b6ce0656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carController: {fileID: 317999711299184741}
+  carCollider: {fileID: 7721553682003863993}
+  model: {fileID: 2306624339734714377}
 --- !u!1 &1664593040851034
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +573,50 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.84, y: 0.31, z: 0.31}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1855231426339219071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8778084133937822101}
+  - component: {fileID: 1323041150736439808}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8778084133937822101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855231426339219071}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.141, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4081104841209800529}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1323041150736439808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855231426339219071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db73e79eb4bf1d448d8d9a85290fea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0.033422947, b: 1, a: 1}
 --- !u!1 &2306624339734714377
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +653,7 @@ Transform:
   - {fileID: 8732706144924617834}
   - {fileID: 1565554830124481952}
   - {fileID: 3003003378775577380}
+  - {fileID: 8778084133937822101}
   m_Father: {fileID: 4870167790249810}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -682,7 +743,7 @@ GameObject:
   - component: {fileID: 7721553682003863993}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Player
+  m_TagString: AICar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

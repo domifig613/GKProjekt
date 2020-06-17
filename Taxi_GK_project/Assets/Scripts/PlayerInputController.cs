@@ -102,6 +102,7 @@ public class PlayerInputController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.H) && carController.CurrentSpeed <= 1.0f)
                 {
+                    carController.GetComponentInChildren<Rigidbody>().transform.rotation = new Quaternion();
                     carController.SetPosition(mechanicPosition);
                 }
             }

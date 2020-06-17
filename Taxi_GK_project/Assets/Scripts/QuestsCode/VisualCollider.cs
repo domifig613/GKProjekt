@@ -13,16 +13,25 @@ public class VisualCollider : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        onTriggerStay?.Invoke();
+        if (other.gameObject.tag == "Player")
+        {
+            onTriggerStay?.Invoke();
+        }
     }
-    
+
     public void OnTriggerEnter(Collider other)
     {
-        IsCarInArea = true;
+        if (other.gameObject.tag == "Player")
+        {
+            IsCarInArea = true;
+        }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        IsCarInArea = false;    
+        if (other.gameObject.tag == "Player")
+        {
+            IsCarInArea = false;
+        }
     }
 }
