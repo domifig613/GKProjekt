@@ -48,8 +48,8 @@ public class GarageController : MonoBehaviour
         return Instantiate(cars[index]);
     }
 
-    public void ReturnCarToGarage(GameObject car, int index)
+    public Vector3 GetFirstGaragePosition()
     {
-        cars[index] = car;
+        return garageVisualControllers[0].transform.position;
     }
 }

@@ -15,9 +15,10 @@ public class PlayerInputController : MonoBehaviour
     private float verticalInput = 0f;
     private float horizontalInput = 0f;
     private bool wasCollisionWithWallInLastCheck = false;
+    private bool wasCollisionWithOtherInLastCheck = false;
     private bool mechanicCorStart = false;
 
-    private Vector3 startPosition = new Vector3(65.3f, 0f, -245.5f);
+    private Vector3 startPosition = new Vector3(-65.3f, 0f, 245.5f);
     private Vector3 mechanicPosition = new Vector3(65.3f, 0f, -230.5f);
 
     private void Start()
@@ -37,6 +38,16 @@ public class PlayerInputController : MonoBehaviour
         else
         {
             wasCollisionWithWallInLastCheck = frontBumper.collisionDetected || rearBumper.collisionDetected;
+        }
+
+        if (!wasCollisionWithOtherInLastCheck && (frontBumper.collisionWithOtherDetected || rearBumper.collisionWithOtherDetected))
+        {
+            wasCollisionWithOtherInLastCheck = !wasCollisionWithOtherInLastCheck;
+            carController.RemoveDurability(1);
+        }
+        else
+        {
+            wasCollisionWithOtherInLastCheck = frontBumper.collisionDetected || rearBumper.collisionDetected;
         }
 
         carController.SetInputs(verticalInput, horizontalInput, frontBumper.collisionDetected, rearBumper.collisionDetected);
@@ -103,7 +114,14 @@ public class PlayerInputController : MonoBehaviour
                 if (Input.GetKey(KeyCode.H) && carController.CurrentSpeed <= 1.0f)
                 {
                     carController.GetComponentInChildren<Rigidbody>().transform.rotation = new Quaternion();
-                    carController.SetPosition(mechanicPosition);
+                    //if (carController.Index == 0)
+                    //{
+                    //    carController.SetPosition(mechanicPosition);
+                    //}
+                    //else
+                    {
+                        carController.SetPosition(garageController.GetFirstGaragePosition());
+                    }
                 }
             }
         }

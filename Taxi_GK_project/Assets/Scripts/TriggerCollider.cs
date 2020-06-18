@@ -1,18 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TriggerCollider : MonoBehaviour
 {
     public bool collisionDetected { private set; get; }
+    public bool collisionWithOtherDetected { private set; get; }
     
-    private int collisionCount = 0;
+    private int collisionWithWallCount = 0;
+    private int collisionWithOtherCount = 0;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            collisionCount++;
+            collisionWithWallCount++;
+        }
+        else if (other.transform.tag == "AICar")
+        {
+            collisionWithOtherCount++;
         }
     }
 
@@ -20,12 +24,17 @@ public class TriggerCollider : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            collisionCount--;
+            collisionWithWallCount--;
+        }
+        else if (other.transform.tag == "AICar")
+        {
+            collisionWithOtherCount--;
         }
     }
 
     private void Update()
     {
-        collisionDetected = collisionCount > 0;
+        collisionDetected = collisionWithWallCount > 0;
+        collisionWithOtherDetected = collisionWithOtherCount > 0;
     }
 }

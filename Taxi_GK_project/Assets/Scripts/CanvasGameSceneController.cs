@@ -267,7 +267,7 @@ public class CanvasGameSceneController : MonoBehaviour
             newCarObject.GetComponentInChildren<Rigidbody>().transform.position = new Vector3(carPosition.x, carPosition.y, carPosition.z);
             carController = newCarObject.GetComponent<CarController>();
 
-            cityBuildingsConntroller.SetNewCarTransfor(carController.GetComponentInChildren<Rigidbody>().transform);
+            cityBuildingsConntroller.SetNewCarTransform(carController.GetComponentInChildren<Rigidbody>().transform);
             minimapCamera.player = carController.GetComponentInChildren<Rigidbody>().transform;
             cameraController.SetNewTarget(carController.GetComponentInChildren<Rigidbody>().transform);
             minimapController.SetNewPlayer(carController.GetComponentInChildren<Rigidbody>().transform);

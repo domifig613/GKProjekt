@@ -28,7 +28,7 @@ public class CarController : MonoBehaviour
 
     public void SetPosition(Vector3 newPos)
     {
-        rigidbody.gameObject.transform.localPosition = newPos;
+        rigidbody.gameObject.transform.position = newPos;
     }
 
     public void RemoveDurability(int durabilityToRemove)

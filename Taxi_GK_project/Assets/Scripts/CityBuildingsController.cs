@@ -13,7 +13,7 @@ public class CityBuildingsController : MonoBehaviour
         StartCoroutine(ChangeBuildingsVisibleStateCor());
     }
 
-    public void SetNewCarTransfor(Transform transform)
+    public void SetNewCarTransform(Transform transform)
     {
         playerCarTransform = transform;
     }
