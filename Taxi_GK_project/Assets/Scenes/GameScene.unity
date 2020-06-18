@@ -14324,7 +14324,7 @@ MonoBehaviour:
   - {fileID: 1646981259178978, guid: 0eda42544ac459842a10d0a7c08b93ea, type: 3}
   carControllerPrefab: {fileID: 4839306861288695752, guid: 0768473b08d6b5a4cb8d396f9b33c399,
     type: 3}
-  routesIndexCounts: 04000000040000003c0000000a00000050000000
+  routesIndexCounts: 03000000030000001e000000030000001e000000
   controllerParent: {fileID: 1422622512}
   carParent: {fileID: 176801972}
 --- !u!4 &776664726
